@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>utils.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #6a8759;}
+.s2 { color: #cc7832;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+utils.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'dart:ui'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:google_fonts/google_fonts.dart'</span><span class="s2">;</span>
+
+<span class="s2">class </span><span class="s0">MyCustomScrollBehavior </span><span class="s2">extends </span><span class="s0">MaterialScrollBehavior {</span>
+  <span class="s0">@override</span>
+  <span class="s0">Set&lt;PointerDeviceKind&gt; get dragDevices =&gt; {</span>
+        <span class="s0">PointerDeviceKind.touch</span><span class="s2">,</span>
+        <span class="s0">PointerDeviceKind.mouse</span><span class="s2">,</span>
+      <span class="s0">}</span><span class="s2">;</span>
+<span class="s0">}</span>
+
+<span class="s0">TextStyle SafeGoogleFont(</span>
+  <span class="s0">String fontFamily</span><span class="s2">, </span><span class="s0">{</span>
+  <span class="s0">TextStyle? textStyle</span><span class="s2">,</span>
+  <span class="s0">Color? color</span><span class="s2">,</span>
+  <span class="s0">Color? backgroundColor</span><span class="s2">,</span>
+  <span class="s0">double? fontSize</span><span class="s2">,</span>
+  <span class="s0">FontWeight? fontWeight</span><span class="s2">,</span>
+  <span class="s0">FontStyle? fontStyle</span><span class="s2">,</span>
+  <span class="s0">double? letterSpacing</span><span class="s2">,</span>
+  <span class="s0">double? wordSpacing</span><span class="s2">,</span>
+  <span class="s0">TextBaseline? textBaseline</span><span class="s2">,</span>
+  <span class="s0">double? height</span><span class="s2">,</span>
+  <span class="s0">Locale? locale</span><span class="s2">,</span>
+  <span class="s0">Paint? foreground</span><span class="s2">,</span>
+  <span class="s0">Paint? background</span><span class="s2">,</span>
+  <span class="s0">List&lt;Shadow&gt;? shadows</span><span class="s2">,</span>
+  <span class="s0">List&lt;FontFeature&gt;? fontFeatures</span><span class="s2">,</span>
+  <span class="s0">TextDecoration? decoration</span><span class="s2">,</span>
+  <span class="s0">Color? decorationColor</span><span class="s2">,</span>
+  <span class="s0">TextDecorationStyle? decorationStyle</span><span class="s2">,</span>
+  <span class="s0">double? decorationThickness</span><span class="s2">,</span>
+<span class="s0">}) {</span>
+  <span class="s2">try </span><span class="s0">{</span>
+    <span class="s2">return </span><span class="s0">GoogleFonts.getFont(</span>
+      <span class="s0">fontFamily</span><span class="s2">,</span>
+      <span class="s0">textStyle: textStyle</span><span class="s2">,</span>
+      <span class="s0">color: color</span><span class="s2">,</span>
+      <span class="s0">backgroundColor: backgroundColor</span><span class="s2">,</span>
+      <span class="s0">fontSize: fontSize</span><span class="s2">,</span>
+      <span class="s0">fontWeight: fontWeight</span><span class="s2">,</span>
+      <span class="s0">fontStyle: fontStyle</span><span class="s2">,</span>
+      <span class="s0">letterSpacing: letterSpacing</span><span class="s2">,</span>
+      <span class="s0">wordSpacing: wordSpacing</span><span class="s2">,</span>
+      <span class="s0">textBaseline: textBaseline</span><span class="s2">,</span>
+      <span class="s0">height: height</span><span class="s2">,</span>
+      <span class="s0">locale: locale</span><span class="s2">,</span>
+      <span class="s0">foreground: foreground</span><span class="s2">,</span>
+      <span class="s0">background: background</span><span class="s2">,</span>
+      <span class="s0">shadows: shadows</span><span class="s2">,</span>
+      <span class="s0">fontFeatures: fontFeatures</span><span class="s2">,</span>
+      <span class="s0">decoration: decoration</span><span class="s2">,</span>
+      <span class="s0">decorationColor: decorationColor</span><span class="s2">,</span>
+      <span class="s0">decorationStyle: decorationStyle</span><span class="s2">,</span>
+      <span class="s0">decorationThickness: decorationThickness</span><span class="s2">,</span>
+    <span class="s0">)</span><span class="s2">;</span>
+  <span class="s0">} </span><span class="s2">catch </span><span class="s0">(ex) {</span>
+    <span class="s2">return </span><span class="s0">GoogleFonts.getFont(</span>
+      <span class="s1">&quot;Source Sans Pro&quot;</span><span class="s2">,</span>
+      <span class="s0">textStyle: textStyle</span><span class="s2">,</span>
+      <span class="s0">color: color</span><span class="s2">,</span>
+      <span class="s0">backgroundColor: backgroundColor</span><span class="s2">,</span>
+      <span class="s0">fontSize: fontSize</span><span class="s2">,</span>
+      <span class="s0">fontWeight: fontWeight</span><span class="s2">,</span>
+      <span class="s0">fontStyle: fontStyle</span><span class="s2">,</span>
+      <span class="s0">letterSpacing: letterSpacing</span><span class="s2">,</span>
+      <span class="s0">wordSpacing: wordSpacing</span><span class="s2">,</span>
+      <span class="s0">textBaseline: textBaseline</span><span class="s2">,</span>
+      <span class="s0">height: height</span><span class="s2">,</span>
+      <span class="s0">locale: locale</span><span class="s2">,</span>
+      <span class="s0">foreground: foreground</span><span class="s2">,</span>
+      <span class="s0">background: background</span><span class="s2">,</span>
+      <span class="s0">shadows: shadows</span><span class="s2">,</span>
+      <span class="s0">fontFeatures: fontFeatures</span><span class="s2">,</span>
+      <span class="s0">decoration: decoration</span><span class="s2">,</span>
+      <span class="s0">decorationColor: decorationColor</span><span class="s2">,</span>
+      <span class="s0">decorationStyle: decorationStyle</span><span class="s2">,</span>
+      <span class="s0">decorationThickness: decorationThickness</span><span class="s2">,</span>
+    <span class="s0">)</span><span class="s2">;</span>
+  <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

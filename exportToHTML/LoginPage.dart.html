@@ -1,0 +1,383 @@
+<html>
+<head>
+<title>LoginPage.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #6a8759;}
+.s2 { color: #cc7832;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+LoginPage.dart</font>
+</center></td></tr></table>
+<pre>
+<span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:food_delivery_app_v3/AddRestaurantPage.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:food_delivery_app_v3/HomePage.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:food_delivery_app_v3/MyTextField.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:food_delivery_app_v3/SignUpPage.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:food_delivery_app_v3/utils.dart'</span><span class="s2">;</span>
+
+<span class="s2">class </span><span class="s0">LoginPage </span><span class="s2">extends </span><span class="s0">StatefulWidget{</span>
+  <span class="s0">@override</span>
+  <span class="s0">State&lt;LoginPage&gt; createState() =&gt; _LoginPageState()</span><span class="s2">;</span>
+<span class="s0">}</span>
+
+<span class="s2">class </span><span class="s0">_LoginPageState </span><span class="s2">extends </span><span class="s0">State&lt;LoginPage&gt; {</span>
+  <span class="s2">final </span><span class="s0">_formfield = GlobalKey&lt;FormState&gt;()</span><span class="s2">;</span>
+  <span class="s2">final </span><span class="s0">usernameController = TextEditingController()</span><span class="s2">;</span>
+  <span class="s2">final </span><span class="s0">passwordController = TextEditingController()</span><span class="s2">;</span>
+  <span class="s0">bool passToggle = </span><span class="s2">true;</span>
+
+
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+
+    <span class="s0">double baseWidth = </span><span class="s3">390</span><span class="s2">;</span>
+    <span class="s0">double fem = MediaQuery.of(context).size.width / baseWidth</span><span class="s2">;</span>
+    <span class="s0">double ffem = fem * </span><span class="s3">0.97</span><span class="s2">;</span>
+
+    <span class="s2">return </span><span class="s0">Scaffold(</span>
+        <span class="s4">/*appBar: AppBar( 
+          centerTitle: true, 
+          title: Text( 
+          'Side dish' 
+        ), 
+          backgroundColor: Colors.blue, 
+ 
+      ),*/</span>
+        <span class="s0">body: Container(</span>
+          <span class="s0">child: SingleChildScrollView(</span>
+            <span class="s0">child: Container(</span>
+
+            <span class="s4">// loginYrD (1:1668)</span>
+              <span class="s0">padding: EdgeInsets.fromLTRB(</span><span class="s3">16</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">16</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">8</span><span class="s0">*fem)</span><span class="s2">,</span>
+              <span class="s0">width: double.infinity</span><span class="s2">,</span>
+              <span class="s0">decoration: BoxDecoration (</span>
+                <span class="s0">color: Color(</span><span class="s3">0xffffffff</span><span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">46</span><span class="s0">*fem)</span><span class="s2">,</span>
+              <span class="s0">)</span><span class="s2">,</span>
+              <span class="s0">child: Column(</span>
+                <span class="s0">crossAxisAlignment: CrossAxisAlignment.center</span><span class="s2">,</span>
+                <span class="s0">children: [</span>
+                  <span class="s0">Container(</span>
+            <span class="s4">// autogroupyeedrdw (AdWRrs2GpqAfzRzUxJyEeD)</span>
+                    <span class="s0">margin: EdgeInsets.fromLTRB(</span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">124</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">21</span><span class="s0">*fem)</span><span class="s2">,</span>
+                    <span class="s0">width: </span><span class="s3">224</span><span class="s0">*fem</span><span class="s2">,</span>
+                    <span class="s0">height: </span><span class="s3">66</span><span class="s0">*fem</span><span class="s2">,</span>
+                    <span class="s0">child: Stack(</span>
+                      <span class="s0">children: [</span>
+                        <span class="s0">Positioned(</span>
+                          <span class="s4">// welcomeAuX (1:1669)</span>
+                          <span class="s0">left: </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">,</span>
+                          <span class="s0">top: </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">,</span>
+                          <span class="s0">child: Align(</span>
+                            <span class="s0">child: SizedBox(</span>
+                              <span class="s0">width: </span><span class="s3">143</span><span class="s0">*fem</span><span class="s2">,</span>
+                              <span class="s0">height: </span><span class="s3">46</span><span class="s0">*fem</span><span class="s2">,</span>
+                              <span class="s0">child: Text(</span>
+                                <span class="s1">'Welcome!'</span><span class="s2">,</span>
+                                <span class="s0">style: SafeGoogleFont (</span>
+                                  <span class="s1">'Everett'</span><span class="s2">,</span>
+                                  <span class="s0">fontSize: </span><span class="s3">36</span><span class="s0">*ffem</span><span class="s2">,</span>
+                                  <span class="s0">fontWeight: FontWeight.w500</span><span class="s2">,</span>
+                                  <span class="s0">height: </span><span class="s3">1.2777777778</span><span class="s0">*ffem/fem</span><span class="s2">,</span>
+                                  <span class="s0">letterSpacing: -</span><span class="s3">0.72</span><span class="s0">*fem</span><span class="s2">,</span>
+                                  <span class="s0">color: Color(</span><span class="s3">0xff292d32</span><span class="s0">)</span><span class="s2">,</span>
+                                <span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">Positioned(</span>
+                          <span class="s4">// signuporlogintoyouraccount19T (1:1670)</span>
+                          <span class="s0">left: </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">,</span>
+                          <span class="s0">top: </span><span class="s3">43</span><span class="s0">*fem</span><span class="s2">,</span>
+                          <span class="s0">child: Align(</span>
+                            <span class="s0">child: SizedBox(</span>
+                              <span class="s0">width: </span><span class="s3">224</span><span class="s0">*fem</span><span class="s2">,</span>
+                              <span class="s0">height: </span><span class="s3">23</span><span class="s0">*fem</span><span class="s2">,</span>
+                              <span class="s0">child: Text(</span>
+                                <span class="s1">'Sign up or Login to your Account'</span><span class="s2">,</span>
+                                <span class="s0">style: SafeGoogleFont (</span>
+                                  <span class="s1">'Everett'</span><span class="s2">,</span>
+                                  <span class="s0">fontSize: </span><span class="s3">17</span><span class="s0">*ffem</span><span class="s2">,</span>
+                                  <span class="s0">fontWeight: FontWeight.w400</span><span class="s2">,</span>
+                                  <span class="s0">height: </span><span class="s3">1.3529411765</span><span class="s0">*ffem/fem</span><span class="s2">,</span>
+                                  <span class="s0">letterSpacing: -</span><span class="s3">0.17</span><span class="s0">*fem</span><span class="s2">,</span>
+                                  <span class="s0">color: Color(</span><span class="s3">0xff6a788a</span><span class="s0">)</span><span class="s2">,</span>
+                                <span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">]</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">Container(</span>
+
+                    <span class="s4">// frame74rvm (1:1671)</span>
+                    <span class="s0">margin: EdgeInsets.fromLTRB(</span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">24</span><span class="s0">*fem)</span><span class="s2">,</span>
+                    <span class="s0">padding: EdgeInsets.fromLTRB(</span><span class="s3">10</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">10</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">13</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">10</span><span class="s0">*fem)</span><span class="s2">,</span>
+                    <span class="s0">width: double.infinity</span><span class="s2">,</span>
+                    <span class="s0">height: </span><span class="s3">63</span><span class="s0">*fem</span><span class="s2">,</span>
+                    <span class="s0">decoration: BoxDecoration (</span>
+                      <span class="s0">color: Color(</span><span class="s3">0x4ced9b11</span><span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">230</span><span class="s0">*fem)</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">child: Row(</span>
+                      <span class="s0">crossAxisAlignment: CrossAxisAlignment.center</span><span class="s2">,</span>
+                      <span class="s0">children: [</span>
+                        <span class="s0">Container(</span>
+                          <span class="s4">// frame1029ey (1:1672)</span>
+                          <span class="s0">margin: EdgeInsets.fromLTRB(</span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">10</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem)</span><span class="s2">,</span>
+                          <span class="s0">width: </span><span class="s3">151</span><span class="s0">*fem</span><span class="s2">,</span>
+                          <span class="s0">height: double.infinity</span><span class="s2">,</span>
+                          <span class="s0">decoration: BoxDecoration (</span>
+                            <span class="s0">color: Color(</span><span class="s3">0xffed9b11</span><span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">90</span><span class="s0">*fem)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">child: Center(</span>
+                            <span class="s0">child: Text(</span>
+                              <span class="s1">'Login'</span><span class="s2">,</span>
+                              <span class="s0">textAlign: TextAlign.center</span><span class="s2">,</span>
+                              <span class="s0">style: SafeGoogleFont (</span>
+                                <span class="s1">'Everett'</span><span class="s2">,</span>
+                                <span class="s0">fontSize: </span><span class="s3">17</span><span class="s0">*ffem</span><span class="s2">,</span>
+                                <span class="s0">fontWeight: FontWeight.w400</span><span class="s2">,</span>
+                                <span class="s0">height: </span><span class="s3">1.3529411765</span><span class="s0">*ffem/fem</span><span class="s2">,</span>
+                                <span class="s0">letterSpacing: -</span><span class="s3">0.17</span><span class="s0">*fem</span><span class="s2">,</span>
+                                <span class="s0">color: Color(</span><span class="s3">0xffffffff</span><span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">Container(</span>
+                          <span class="s4">// frame1032Ts (1:1674)</span>
+                          <span class="s0">width: </span><span class="s3">174</span><span class="s0">*fem</span><span class="s2">,</span>
+                          <span class="s0">height: double.infinity</span><span class="s2">,</span>
+                          <span class="s0">decoration: BoxDecoration (</span>
+                            <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">90</span><span class="s0">*fem)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">child: Center(</span>
+                            <span class="s0">child: TextButton(</span>
+                                <span class="s0">onPressed: (){</span>
+                                  <span class="s0">Navigator.push(context</span><span class="s2">, </span><span class="s0">MaterialPageRoute(builder: (context) =&gt; SignUpPage()</span><span class="s2">, </span><span class="s0">) )</span><span class="s2">;</span>
+                                <span class="s0">}</span><span class="s2">,</span>
+                              <span class="s0">child: Text(</span>
+                                <span class="s1">'Sign Up'</span><span class="s2">,</span>
+                                <span class="s0">textAlign: TextAlign.center</span><span class="s2">,</span>
+                                <span class="s0">style: SafeGoogleFont (</span>
+                                  <span class="s1">'Everett'</span><span class="s2">,</span>
+                                  <span class="s0">fontSize: </span><span class="s3">17</span><span class="s0">*ffem</span><span class="s2">,</span>
+                                  <span class="s0">fontWeight: FontWeight.w400</span><span class="s2">,</span>
+                                  <span class="s0">height: </span><span class="s3">1.3529411765</span><span class="s0">*ffem/fem</span><span class="s2">,</span>
+                                  <span class="s0">letterSpacing: -</span><span class="s3">0.17</span><span class="s0">*fem</span><span class="s2">,</span>
+                                  <span class="s0">color: Color(</span><span class="s3">0xffca7816</span><span class="s0">)</span><span class="s2">,</span>
+                                <span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">]</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">Container(</span>
+                      <span class="s4">// username text + username textField + password text + password textfield</span>
+                    <span class="s0">child: Form(</span>
+                      <span class="s0">key: _formfield</span><span class="s2">,</span>
+                      <span class="s0">child: Column(</span>
+                        <span class="s0">crossAxisAlignment: CrossAxisAlignment.center</span><span class="s2">,</span>
+                        <span class="s0">mainAxisAlignment: MainAxisAlignment.center</span><span class="s2">,</span>
+                        <span class="s0">children: [</span>
+                          <span class="s0">Container(</span>
+
+                            <span class="s4">// usernamegoK (1:1680)</span>
+                            <span class="s0">margin: EdgeInsets.fromLTRB(</span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">250</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">6</span><span class="s0">*fem)</span><span class="s2">,</span>
+                            <span class="s0">child: Text(</span>
+                              <span class="s1">'Username'</span><span class="s2">,</span>
+                              <span class="s0">style: SafeGoogleFont (</span>
+                                <span class="s1">'Everett'</span><span class="s2">,</span>
+                                <span class="s0">fontSize: </span><span class="s3">17</span><span class="s0">*ffem</span><span class="s2">,</span>
+                                <span class="s0">fontWeight: FontWeight.w400</span><span class="s2">,</span>
+                                <span class="s0">height: </span><span class="s3">1.3529411765</span><span class="s0">*ffem/fem</span><span class="s2">,</span>
+                                <span class="s0">letterSpacing: -</span><span class="s3">0.17</span><span class="s0">*fem</span><span class="s2">,</span>
+                                <span class="s0">color: Color(</span><span class="s3">0xff292d32</span><span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">Container(</span>
+                            <span class="s0">child: MyTextField(</span>
+                              <span class="s0">controller: usernameController</span><span class="s2">,</span>
+                              <span class="s0">hintText: </span><span class="s1">'Enter username'</span><span class="s2">,</span>
+                              <span class="s0">obsecureText: </span><span class="s2">false,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+
+                          <span class="s0">Container(</span>
+
+                            <span class="s4">// usernamegoK (1:1680)</span>
+                            <span class="s0">margin: EdgeInsets.fromLTRB(</span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">250</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">6</span><span class="s0">*fem)</span><span class="s2">,</span>
+                            <span class="s0">child: Text(</span>
+                              <span class="s1">'Password'</span><span class="s2">,</span>
+                              <span class="s0">style: SafeGoogleFont (</span>
+                                <span class="s1">'Everett'</span><span class="s2">,</span>
+                                <span class="s0">fontSize: </span><span class="s3">17</span><span class="s0">*ffem</span><span class="s2">,</span>
+                                <span class="s0">fontWeight: FontWeight.w400</span><span class="s2">,</span>
+                                <span class="s0">height: </span><span class="s3">1.3529411765</span><span class="s0">*ffem/fem</span><span class="s2">,</span>
+                                <span class="s0">letterSpacing: -</span><span class="s3">0.17</span><span class="s0">*fem</span><span class="s2">,</span>
+                                <span class="s0">color: Color(</span><span class="s3">0xff292d32</span><span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">Container(</span>
+                            <span class="s0">child: MyTextField(</span>
+                              <span class="s0">controller: passwordController</span><span class="s2">,</span>
+                              <span class="s0">hintText: </span><span class="s1">'Enter password'</span><span class="s2">,</span>
+                              <span class="s0">obsecureText: </span><span class="s2">true,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s4">/*Container( 
+                            // forgotpasswordR29 (1:1682) 
+                            margin: EdgeInsets.fromLTRB(225*fem, 0*fem, 0*fem, 0*fem), 
+ 
+                            child: TextButton( 
+                              onPressed: (){ 
+                                Navigator.push(context, MaterialPageRoute(builder: (context) =&gt; AddRestaurantPage(), ) ); 
+                              }, 
+                              child: Text( 
+                                'Forgot Password?', 
+                                textAlign: TextAlign.right, 
+                                style: SafeGoogleFont ( 
+                                  'Everett', 
+                                  fontSize: 17*ffem, 
+                                  fontWeight: FontWeight.w400, 
+                                  height: 1.3529411765*ffem/fem, 
+                                  letterSpacing: -0.17*fem, 
+                                  decoration: TextDecoration.underline, 
+                                  color: Color(0xff6a788a), 
+                                  decorationColor: Color(0xff6a788a), 
+                                ), 
+                              ), 
+                            ), 
+                          ),*/</span>
+  <span class="s4">/*                        Container( 
+ 
+                            // usernamegoK (1:1680) 
+                            margin: EdgeInsets.fromLTRB(200*fem, 0*fem, 0*fem, 0*fem), 
+                            child: Text( 
+                              'Forgot password?', 
+                              style: SafeGoogleFont ( 
+                                'Everett', 
+                                fontSize: 17*ffem, 
+                                fontWeight: FontWeight.w400, 
+                                height: 1.3529411765*ffem/fem, 
+                                letterSpacing: -0.17*fem, 
+                                color: Color(0xff292d32), 
+                              ), 
+                            ), 
+                          ), 
+*/</span>
+  <span class="s4">/*                        TextButton( 
+                            onPressed: onPressed, 
+                            child: Text( 
+                                'Next', 
+                            ), 
+                          ), 
+    */</span>
+
+
+                        <span class="s0">]</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+
+                  <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">Container(</span>
+                    <span class="s0">padding: EdgeInsets.fromLTRB(</span><span class="s3">0</span><span class="s2">, </span><span class="s3">20</span><span class="s2">, </span><span class="s3">0</span><span class="s2">, </span><span class="s3">0</span><span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">child: Container(</span>
+
+                      <span class="s4">// frame74rvm (1:1671)</span>
+                      <span class="s0">margin: EdgeInsets.fromLTRB(</span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">24</span><span class="s0">*fem)</span><span class="s2">,</span>
+                      <span class="s0">padding: EdgeInsets.fromLTRB(</span><span class="s3">10</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">10</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">13</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">10</span><span class="s0">*fem)</span><span class="s2">,</span>
+                      <span class="s0">width: double.infinity</span><span class="s2">,</span>
+                      <span class="s0">height: </span><span class="s3">63</span><span class="s0">*fem</span><span class="s2">,</span>
+                      <span class="s0">decoration: BoxDecoration (</span>
+                        <span class="s4">//color: Color(0x4ced9b11),</span>
+                        <span class="s0">color: Colors.blue.shade200</span><span class="s2">,</span>
+                        <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">230</span><span class="s0">*fem)</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">child: Container(</span>
+                        <span class="s4">// frame1029ey (1:1672)</span>
+                        <span class="s0">margin: EdgeInsets.fromLTRB(</span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">10</span><span class="s0">*fem</span><span class="s2">, </span><span class="s3">0</span><span class="s0">*fem)</span><span class="s2">,</span>
+                        <span class="s0">width: </span><span class="s3">151</span><span class="s0">*fem</span><span class="s2">,</span>
+                        <span class="s0">height: double.infinity</span><span class="s2">,</span>
+                        <span class="s0">decoration: BoxDecoration (</span>
+                          <span class="s4">//color: Color(0xffed9b11),</span>
+                          <span class="s0">color: Colors.blue</span><span class="s2">,</span>
+                          <span class="s0">borderRadius: BorderRadius.circular(</span><span class="s3">90</span><span class="s0">*fem)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">child: Center(</span>
+                          <span class="s0">child: TextButton(</span>
+                            <span class="s0">onPressed: (){</span>
+                              <span class="s2">if</span><span class="s0">(_formfield.currentState!.validate()){</span>
+                                <span class="s2">if</span><span class="s0">(usernameController.text == </span><span class="s1">&quot;Username1&quot; </span><span class="s0">&amp;&amp;</span>
+                                    <span class="s0">passwordController.text == </span><span class="s1">&quot;Password&quot;</span>
+                                <span class="s0">){ScaffoldMessenger.of(context).showSnackBar(</span>
+                                    <span class="s2">const </span><span class="s0">SnackBar(content: Text(</span><span class="s1">'Welcome our customers'</span><span class="s0">)))</span><span class="s2">;</span>
+                                <span class="s0">Navigator.push(context</span><span class="s2">, </span><span class="s0">MaterialPageRoute(builder: (context) =&gt; MyHomePage()</span><span class="s2">, </span><span class="s0">) )</span><span class="s2">;</span>
+                                <span class="s0">}</span>
+                                <span class="s2">else if</span><span class="s0">(usernameController.text == </span><span class="s1">&quot;Username2&quot; </span><span class="s0">&amp;&amp;</span>
+                                    <span class="s0">passwordController.text == </span><span class="s1">&quot;Password&quot;</span>
+                                <span class="s0">){</span>
+                                  <span class="s0">ScaffoldMessenger.of(context).showSnackBar(</span>
+                                      <span class="s2">const </span><span class="s0">SnackBar(content: Text(</span><span class="s1">'Welcome our Driver'</span><span class="s0">)))</span><span class="s2">;</span>
+                                  <span class="s0">Navigator.push(context</span><span class="s2">, </span><span class="s0">MaterialPageRoute(builder: (context) =&gt; MyHomePage()</span><span class="s2">, </span><span class="s0">) )</span><span class="s2">;</span>
+                                <span class="s0">}</span>
+                                <span class="s2">else if</span><span class="s0">(usernameController.text == </span><span class="s1">&quot;Username3&quot; </span><span class="s0">&amp;&amp;</span>
+                                    <span class="s0">passwordController.text == </span><span class="s1">&quot;Password&quot;</span>
+                                <span class="s0">){</span>
+                                  <span class="s0">ScaffoldMessenger.of(context).showSnackBar(</span>
+                                      <span class="s2">const </span><span class="s0">SnackBar(content: Text(</span><span class="s1">'Welcome Restaurant Owner'</span><span class="s0">)))</span><span class="s2">;</span>
+                                  <span class="s0">Navigator.push(context</span><span class="s2">, </span><span class="s0">MaterialPageRoute(builder: (context) =&gt; MyHomePage()</span><span class="s2">, </span><span class="s0">) )</span><span class="s2">;</span>
+                                <span class="s0">} </span><span class="s2">else </span><span class="s0">{</span>
+                                  <span class="s0">ScaffoldMessenger.of(context).showSnackBar(</span>
+                                      <span class="s2">const </span><span class="s0">SnackBar(content: Text(</span><span class="s1">'username or password is incorrect'</span><span class="s0">)))</span><span class="s2">;</span>
+                                <span class="s0">}</span>
+                              <span class="s0">}</span>
+                            <span class="s0">}</span><span class="s2">,</span>
+                            <span class="s0">child: Text(</span>
+                              <span class="s1">'Login'</span><span class="s2">,</span>
+                              <span class="s0">textAlign: TextAlign.center</span><span class="s2">,</span>
+                              <span class="s0">style: SafeGoogleFont (</span>
+                                <span class="s1">'Everett'</span><span class="s2">,</span>
+                                <span class="s0">fontSize: </span><span class="s3">17</span><span class="s0">*ffem</span><span class="s2">,</span>
+                                <span class="s0">fontWeight: FontWeight.w400</span><span class="s2">,</span>
+                                <span class="s0">height: </span><span class="s3">1.3529411765</span><span class="s0">*ffem/fem</span><span class="s2">,</span>
+                                <span class="s0">letterSpacing: -</span><span class="s3">0.17</span><span class="s0">*fem</span><span class="s2">,</span>
+                                <span class="s0">color: Color(</span><span class="s3">0xffffffff</span><span class="s0">)</span><span class="s2">,</span>
+                              <span class="s0">)</span><span class="s2">,</span>
+                            <span class="s0">)</span><span class="s2">,</span>
+                          <span class="s0">)</span><span class="s2">,</span>
+                        <span class="s0">)</span><span class="s2">,</span>
+                      <span class="s0">)</span><span class="s2">,</span>
+                    <span class="s0">)</span><span class="s2">,</span>
+                  <span class="s0">)</span>
+                <span class="s0">]</span><span class="s2">,</span>
+            <span class="s0">)</span><span class="s2">,</span>
+          <span class="s0">)</span><span class="s2">,</span>
+        <span class="s0">)</span>
+      <span class="s0">)</span>
+    <span class="s0">)</span><span class="s2">;</span>
+    <span class="s2">throw </span><span class="s0">UnimplementedError()</span><span class="s2">;</span>
+  <span class="s0">}</span>
+<span class="s0">}</span></pre>
+</body>
+</html>

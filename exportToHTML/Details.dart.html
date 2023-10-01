@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>Details.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #6a8759;}
+.s2 { color: #cc7832;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Details.dart</font>
+</center></td></tr></table>
+<pre>
+
+<span class="s0">import </span><span class="s1">'package:flutter/cupertino.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:flutter/material.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:food_delivery_app_v3/userDetails.dart'</span><span class="s2">;</span>
+
+<span class="s2">class </span><span class="s0">Details </span><span class="s2">extends </span><span class="s0">StatelessWidget{</span>
+
+  <span class="s0">Details({Key? key </span><span class="s2">, </span><span class="s0">required </span><span class="s2">this</span><span class="s0">.userDetails</span><span class="s2">,</span><span class="s0">})</span>
+      <span class="s0">: </span><span class="s2">super</span><span class="s0">(key: key)</span><span class="s2">;</span>
+  <span class="s0">UserDetails userDetails</span><span class="s2">;</span>
+
+  <span class="s0">@override</span>
+  <span class="s0">Widget build(BuildContext context) {</span>
+    <span class="s2">return </span><span class="s0">Scaffold(</span>
+      <span class="s0">backgroundColor: Colors.blue.shade50</span><span class="s2">,</span>
+      <span class="s0">body: Container(</span>
+        <span class="s0">padding: </span><span class="s2">const </span><span class="s0">EdgeInsets.all(</span><span class="s3">4.0</span><span class="s0">)</span><span class="s2">,</span>
+        <span class="s0">child: ListView(</span>
+          <span class="s0">children: [</span>
+            <span class="s0">ListTile(</span>
+              <span class="s0">shape: RoundedRectangleBorder(</span>
+                <span class="s0">side: BorderSide(width: </span><span class="s3">1.0</span><span class="s2">, </span><span class="s0">color: Colors.blue.shade800)</span>
+              <span class="s0">)</span><span class="s2">,</span>
+              <span class="s0">leading: IconButton(</span>
+                <span class="s0">icon: Icon(Icons.verified_user</span><span class="s2">, </span><span class="s0">color: Colors.blue</span><span class="s2">,</span><span class="s0">)</span><span class="s2">,</span>
+                <span class="s0">onPressed: (){}</span><span class="s2">,</span>
+              <span class="s0">)</span><span class="s2">,</span>
+              <span class="s0">title: Column(</span>
+                <span class="s0">mainAxisAlignment:  MainAxisAlignment.start</span><span class="s2">,</span>
+                <span class="s0">crossAxisAlignment: CrossAxisAlignment.start</span><span class="s2">,</span>
+                <span class="s0">children: [</span>
+
+                  <span class="s4">/*const Chip( 
+                    label: Text(&quot;User&quot;), 
+                    backgroundColor: Colors.blue, 
+                    labelStyle: TextStyle(color: Colors.amber), 
+                  ),*/</span>
+                  <span class="s0">Text(userDetails.fullName)</span><span class="s2">,</span>
+                  <span class="s0">Text(userDetails.username)</span><span class="s2">,</span>
+                  <span class="s0">Text(userDetails.password)</span><span class="s2">,</span>
+                  <span class="s0">Text(userDetails.phoneNumber)</span><span class="s2">,</span>
+                  <span class="s0">Text(userDetails.userRole.name)</span><span class="s2">,</span>
+                <span class="s0">]</span><span class="s2">,</span>
+              <span class="s0">)</span><span class="s2">,</span>
+            <span class="s0">)</span>
+          <span class="s0">]</span><span class="s2">,</span>
+        <span class="s0">)</span><span class="s2">,</span>
+      <span class="s0">)</span><span class="s2">,</span>
+    <span class="s0">)</span><span class="s2">;</span>
+
+
+    <span class="s2">throw </span><span class="s0">UnimplementedError()</span><span class="s2">;</span>
+  <span class="s0">}</span>
+
+<span class="s0">}</span></pre>
+</body>
+</html>

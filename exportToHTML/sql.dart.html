@@ -1,0 +1,218 @@
+<html>
+<head>
+<title>sql.dart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #6a8759;}
+.s2 { color: #cc7832;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+sql.dart</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">'package:sqflite/sqflite.dart'</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">'package:path/path.dart'</span><span class="s2">;</span>
+
+<span class="s2">class </span><span class="s0">SqlDb{</span>
+  <span class="s0">static Database? _db</span><span class="s2">;</span>
+  <span class="s0">Future&lt;Database?&gt; get db async{</span>
+    <span class="s2">if</span><span class="s0">(_db == Null){</span>
+      <span class="s0">_db = await intialDb()</span><span class="s2">;</span>
+      <span class="s2">return </span><span class="s0">_db</span><span class="s2">;</span>
+    <span class="s0">} </span><span class="s2">else</span><span class="s0">{</span>
+      <span class="s2">return </span><span class="s0">_db</span><span class="s2">;</span>
+    <span class="s0">}</span>
+  <span class="s0">}</span>
+
+  <span class="s0">intialDb() async{</span>
+    <span class="s0">print(</span><span class="s1">&quot;db&quot;</span><span class="s0">)</span><span class="s2">;</span>
+    <span class="s0">String databasepath = await getDatabasesPath()</span><span class="s2">;</span>
+    <span class="s0">String path = join(databasepath</span><span class="s2">,</span><span class="s1">'anything.db'</span><span class="s0">)</span><span class="s2">;</span>
+    <span class="s0">Database mydb = await openDatabase(path</span><span class="s2">, </span><span class="s0">onCreate:_onCreate)</span><span class="s2">;</span>
+    <span class="s0">print(</span><span class="s1">&quot;db2&quot;</span><span class="s0">)</span><span class="s2">;</span>
+    <span class="s2">return </span><span class="s0">mydb</span><span class="s2">;</span>
+  <span class="s0">}</span>
+  <span class="s0">_onCreate( Database db</span><span class="s2">, </span><span class="s0">int version) async{</span>
+   <span class="s0">await db.execute(</span><span class="s1">'''</span>
+   
+   <span class="s1">CREATE TABLE 'Customer' 
+( 
+  'ID' INTEGER NOT NULL AUTOINCREMENT, 
+  'Full_Name' VARCHAR NOT NULL, 
+  'Phone_Number' VARCHAR NOT NULL, 
+  'Username' VARCHAR NOT NULL, 
+  'Password' VARCHAR NOT NULL, 
+  'PRIMARY KEY (ID) 
+) 
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   
+   <span class="s1">CREATE TABLE Customer_address 
+( 
+  Cust_Address VARCHAR NOT NULL, 
+  City VARCHAR NOT NULL, 
+  ID VARCHAR NOT NULL, 
+  PRIMARY KEY (Cust_Address, ID), 
+  FOREIGN KEY (ID) REFERENCES Customer(ID) 
+) 
+ 
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   
+   <span class="s1">CREATE TABLE Restaurant_Owner 
+( 
+  ID VARCHAR NOT NULL, 
+  Full_Name VARCHAR NOT NULL, 
+  User_Name VARCHAR NOT NULL, 
+  Phone_number VARCHAR NOT NULL, 
+  password VARCHAR NOT NULL, 
+  PRIMARY KEY (ID) 
+) 
+ 
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   <span class="s1">CREATE TABLE Delivery_Guy 
+( 
+  Delviery_ID VARCHAR NOT NULL, 
+  Full_Name VARCHAR NOT NULL, 
+  Username VARCHAR NOT NULL, 
+  phone_number VARCHAR NOT NULL, 
+  password VARCHAR NOT NULL, 
+  PRIMARY KEY (Delviery_ID) 
+) 
+    
+    
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   
+   <span class="s1">CREATE TABLE Restaurant 
+( 
+  Rest_ID VARCHAR NOT NULL, 
+  Name VARCHAR NOT NULL, 
+  Phone_Number VARCHAR NOT NULL, 
+  Logo VARCHAR NOT NULL, 
+  ID VARCHAR NOT NULL, 
+  PRIMARY KEY (Rest_ID), 
+  FOREIGN KEY (ID) REFERENCES Restaurant_Owner(ID) 
+) 
+ 
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   
+   <span class="s1">CREATE TABLE Restaurant_Address 
+( 
+  Rest_Address VARCHAR NOT NULL, 
+  City VARCHAR NOT NULL, 
+  Rest_ID VARCHAR NOT NULL, 
+  PRIMARY KEY (Rest_Address, Rest_ID), 
+  FOREIGN KEY (Rest_ID) REFERENCES Restaurant(Rest_ID) 
+) 
+ 
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   
+      <span class="s1">CREATE TABLE Menu_item 
+( 
+  ID VARCHAR NOT NULL, 
+  Name VARCHAR NOT NULL, 
+  Price INT NOT NULL, 
+  Rest_ID VARCHAR NOT NULL, 
+  PRIMARY KEY (ID), 
+  FOREIGN KEY (Rest_ID) REFERENCES Restaurant(Rest_ID) 
+) 
+ 
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   
+   
+   <span class="s1">CREATE TABLE Order 
+( 
+  Order_ID VARCHAR NOT NULL, 
+  Total INT NOT NULL, 
+  delivery_cost INT NOT NULL, 
+  Status VARCHAR NOT NULL, 
+  Cust_Address VARCHAR NOT NULL, 
+  ID VARCHAR NOT NULL, 
+  Rest_Address VARCHAR NOT NULL, 
+  Rest_ID VARCHAR NOT NULL, 
+  Delviery_ID VARCHAR NOT NULL, 
+  PRIMARY KEY (Order_ID), 
+  FOREIGN KEY (Cust_Address, ID) REFERENCES Customer_address(Cust_Address, ID), 
+  FOREIGN KEY (Rest_Address, Rest_ID) REFERENCES Restaurant_Address(Rest_Address, Rest_ID), 
+  FOREIGN KEY (Delviery_ID) REFERENCES Delivery_Guy(Delviery_ID) 
+) 
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   
+   <span class="s1">CREATE TABLE Order_menu 
+( 
+  Order_ID VARCHAR NOT NULL, 
+  ID VARCHAR NOT NULL, 
+  FOREIGN KEY (Order_ID) REFERENCES Order(Order_ID), 
+  FOREIGN KEY (ID) REFERENCES Menu_item(ID) 
+) 
+    
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+   <span class="s0">db.execute(</span><span class="s1">'''</span>
+   
+   <span class="s1">CREATE TABLE Tags 
+( 
+  Tag VARCHAR NOT NULL, 
+  Rest_ID VARCHAR NOT NULL, 
+  PRIMARY KEY (Tag, Rest_ID), 
+  FOREIGN KEY (Rest_ID) REFERENCES Restaurant(Rest_ID) 
+); 
+    
+   '''</span><span class="s0">)</span><span class="s2">;</span>
+
+
+
+  <span class="s0">}</span>
+  <span class="s0">readData(String sql) async{</span>
+    <span class="s0">Database? mydb = await db</span><span class="s2">;</span>
+    <span class="s0">List&lt;Map&gt; response = await mydb!.rawQuery(sql)</span><span class="s2">;</span>
+    <span class="s2">return </span><span class="s0">response</span><span class="s2">;</span>
+  <span class="s0">}</span>
+  <span class="s0">insertData(String sql) async{</span>
+    <span class="s0">print(sql )</span><span class="s2">;</span>
+
+    <span class="s0">Database? mydb = await db</span><span class="s2">;</span>
+    <span class="s0">int response = await mydb!.rawInsert(sql)</span><span class="s2">;</span>
+    <span class="s0">print(sql )</span><span class="s2">;</span>
+    <span class="s0">print(</span><span class="s1">&quot;db3&quot;</span><span class="s0">)</span><span class="s2">;</span>
+    <span class="s2">return </span><span class="s0">response</span><span class="s2">;</span>
+  <span class="s0">}</span>
+
+  <span class="s0">updateData(String sql) async{</span>
+    <span class="s0">Database? mydb = await db</span><span class="s2">;</span>
+    <span class="s0">int response = await mydb!.rawUpdate(sql)</span><span class="s2">;</span>
+    <span class="s2">return </span><span class="s0">response</span><span class="s2">;</span>
+  <span class="s0">}</span>
+  <span class="s0">deleteData(String sql) async{</span>
+    <span class="s0">Database? mydb = await db</span><span class="s2">;</span>
+    <span class="s0">int response = await mydb!.rawDelete(sql)</span><span class="s2">;</span>
+    <span class="s2">return </span><span class="s0">response</span><span class="s2">;</span>
+  <span class="s0">}</span>
+
+
+
+
+
+<span class="s0">}</span>
+</pre>
+</body>
+</html>
