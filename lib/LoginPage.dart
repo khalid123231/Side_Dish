@@ -316,7 +316,7 @@ class _LoginPageState extends State<LoginPage> {
                                     const SnackBar(content: Text('Welcome our customers')));
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
                                 }
-                                else if(usernameController.text == "Username2" &&
+                                else if(usernameController.text == "Username22" &&
                                     passwordController.text == "Password"
                                 ){
                                   ScaffoldMessenger.of(context).showSnackBar(
