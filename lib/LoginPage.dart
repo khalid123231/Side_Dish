@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app_v3/AddRestaurantPage.dart';
@@ -6,6 +7,7 @@ import 'package:food_delivery_app_v3/HomePage.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
 import 'package:food_delivery_app_v3/SignUpPage.dart';
 import 'package:food_delivery_app_v3/utils.dart';
+final firestore = FirebaseFirestore.instance;
 
 class LoginPage extends StatefulWidget{
   @override
@@ -308,7 +310,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: Center(
                           child: TextButton(
-                            onPressed: (){
+                            onPressed: () async {
+                              await firestore.collection('users').add({
+                                'name': 'John Doe',
+                                'email': 'john.doe@example.com',
+                              });
                               if(_formfield.currentState!.validate()){
                                 if(usernameController.text == "Username11" &&
                                     passwordController.text == "Password"
