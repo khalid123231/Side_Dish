@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app_v3/AddRestaurantPage.dart';
@@ -407,6 +408,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                   } else null;
                                   sqlDb.insertData(sqlQuery );*/
                                   if (_userRoleEnum == userRoleEnum.Customer){
+                                    CollectionReference customerCollection =
+                                    FirebaseFirestore.instance.collection('customer');
+                                    QuerySnapshot customerSnapshot = await customerCollection
+                                        .where('Username', isEqualTo: usernameController.text)
+                                        .get();
+                                    if(customerSnapshot.docs.isEmpty){
+
                                     await firestore.collection('customer').add({
                                       'Full name': fullNameController.text,
                                       'Username': usernameController.text,
@@ -414,7 +422,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       'Phone number': phoneController.text,
                                     });
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Welcome to our customers')));
+                                        const SnackBar(content: Text('Welcome to our customers')));}
                                   }
                                   else if (_userRoleEnum == userRoleEnum.Driver){
                                     await firestore.collection('driver').add({
