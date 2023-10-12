@@ -383,7 +383,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           child: Center(
                             child: TextButton(
-                              onPressed: () {
+                              onPressed: () async {
                                // sqlDb = SqlDb().intialDb();
                                 if(_formfield.currentState!.validate()){
                                   /*ScaffoldMessenger.of(context).showSnackBar(
@@ -407,14 +407,32 @@ class _SignUpPageState extends State<SignUpPage> {
                                   } else null;
                                   sqlDb.insertData(sqlQuery );*/
                                   if (_userRoleEnum == userRoleEnum.Customer){
+                                    await firestore.collection('customer').add({
+                                      'Full name': fullNameController.text,
+                                      'Username': usernameController.text,
+                                      'Password': passwordController.text,
+                                      'Phone number': phoneController.text,
+                                    });
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(content: Text('Welcome to our customers')));
                                   }
                                   else if (_userRoleEnum == userRoleEnum.Driver){
+                                    await firestore.collection('driver').add({
+                                      'Full name': fullNameController.text,
+                                      'Username': usernameController.text,
+                                      'Password': passwordController.text,
+                                      'Phone number': phoneController.text,
+                                    });
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(content: Text('Welcome to our drivers')));
                                   }
                                   else if (_userRoleEnum == userRoleEnum.RestaurantOwner){
+                                    await firestore.collection('restaurant owner').add({
+                                      'Full name': fullNameController.text,
+                                      'Username': usernameController.text,
+                                      'Password': passwordController.text,
+                                      'Phone number': phoneController.text,
+                                    });
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => AddRestaurantPage(), ) );
                                   }
                                   else {}
