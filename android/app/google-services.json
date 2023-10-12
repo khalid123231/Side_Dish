@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1036355081414",
+    "project_id": "side-dish-756b7",
+    "storage_bucket": "side-dish-756b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036355081414:android:e27cc9f1f7db87d2e933c7",
+        "android_client_info": {
+          "package_name": "com.example.food_delivery_app_v3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA17NwGvy5m4nbt9Gtmp1RcmbubFjxbhXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
