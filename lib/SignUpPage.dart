@@ -422,7 +422,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   QuerySnapshot customerSnapshot3 = await customerCollection3
                                       .where('Username', isEqualTo: usernameController.text)
                                       .get();
-                                  if(customerSnapshot3.docs.isEmpty && customerSnapshot2.docs.isEmpty && customerSnapshot1.docs.isEmpty  )
+                                  if(customerSnapshot3.docs.isEmpty && customerSnapshot2.docs.isEmpty && customerSnapshot1.docs.isEmpty  ){
                                   if (_userRoleEnum == userRoleEnum.Customer){
                                     CollectionReference customerCollection =
                                     FirebaseFirestore.instance.collection('customer');
@@ -459,7 +459,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     });
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => AddRestaurantPage(), ) );
                                   }
-                                  else {}
+                                  else {}}
 
                                   //Navigator.push(context, MaterialPageRoute(builder: (context){return Details(userDetails: userDetails);}));
                                 }
