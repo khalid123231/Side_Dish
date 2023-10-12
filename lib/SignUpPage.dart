@@ -407,13 +407,29 @@ class _SignUpPageState extends State<SignUpPage> {
                                         'VALUES ('+ '1'+fullNameController.text+','+ usernameController.text+', '+phoneController.text+', '+passwordController.text+',)' ;
                                   } else null;
                                   sqlDb.insertData(sqlQuery );*/
+                                  CollectionReference customerCollection1 =
+                                  FirebaseFirestore.instance.collection('customer');
+                                  QuerySnapshot customerSnapshot1 = await customerCollection1
+                                      .where('Username', isEqualTo: usernameController.text)
+                                      .get();
+                                  CollectionReference customerCollection2 =
+                                  FirebaseFirestore.instance.collection('driver');
+                                  QuerySnapshot customerSnapshot2 = await customerCollection2
+                                      .where('Username', isEqualTo: usernameController.text)
+                                      .get();
+                                  CollectionReference customerCollection3 =
+                                  FirebaseFirestore.instance.collection('restaurant owner');
+                                  QuerySnapshot customerSnapshot3 = await customerCollection3
+                                      .where('Username', isEqualTo: usernameController.text)
+                                      .get();
+                                  if(customerSnapshot3.docs.isEmpty && customerSnapshot2.docs.isEmpty && customerSnapshot1.docs.isEmpty  )
                                   if (_userRoleEnum == userRoleEnum.Customer){
                                     CollectionReference customerCollection =
                                     FirebaseFirestore.instance.collection('customer');
                                     QuerySnapshot customerSnapshot = await customerCollection
                                         .where('Username', isEqualTo: usernameController.text)
                                         .get();
-                                    if(customerSnapshot.docs.isEmpty){
+
 
                                     await firestore.collection('customer').add({
                                       'Full name': fullNameController.text,
@@ -422,7 +438,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       'Phone number': phoneController.text,
                                     });
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Welcome to our customers')));}
+                                        const SnackBar(content: Text('Welcome to our customers')));
                                   }
                                   else if (_userRoleEnum == userRoleEnum.Driver){
                                     await firestore.collection('driver').add({
