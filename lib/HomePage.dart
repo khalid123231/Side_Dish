@@ -4,8 +4,19 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app_v3/FavoriteList.dart';
+import 'package:food_delivery_app_v3/RestaurantsList.dart';
 
-class MyHomePage extends StatelessWidget{
+class MyHomePage extends StatefulWidget{
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int curentPage = 0;
+  List<Widget> pages = [ RestaurantList(), FavoriteList()];
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -13,11 +24,15 @@ class MyHomePage extends StatelessWidget{
       appBar: AppBar(
         title: Text("HomePage"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
-      body: Center(
-        child: Text("Welcome"),
-      ),
+      body: pages[curentPage],
+      bottomNavigationBar: NavigationBar(destinations: const [NavigationDestination(icon:Icon(Icons.home), label: 'Home'),NavigationDestination(icon:Icon(Icons.star), label: 'favorits')],onDestinationSelected:(int index){
+        setState(() {
+          curentPage = index;
+        });
+      } , selectedIndex: curentPage,),
+
     );
   }
-
 }
