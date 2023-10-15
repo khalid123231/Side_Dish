@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app_v3/AddRestaurantPage.dart';
 import 'package:food_delivery_app_v3/HomePage.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
+import 'package:food_delivery_app_v3/RestaurantOwnerHomePage.dart';
 import 'package:food_delivery_app_v3/SignUpPage.dart';
 import 'package:food_delivery_app_v3/utils.dart';
 final firestore = FirebaseFirestore.instance;
@@ -311,10 +312,10 @@ class _LoginPageState extends State<LoginPage> {
                         child: Center(
                           child: TextButton(
                             onPressed: () async {
-                              await firestore.collection('users').add({
+                              /*await firestore.collection('users').add({
                                 'name': 'John Doe',
                                 'email': 'john.doe@example.com',
-                              });
+                              });*/
                               if(_formfield.currentState!.validate()){
                                 if(usernameController.text == "Username11" &&
                                     passwordController.text == "Password"
@@ -335,7 +336,17 @@ class _LoginPageState extends State<LoginPage> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Welcome Restaurant Owner')));
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
-                                } else {
+
+                                }// This is for edit menu use case
+                                else if(usernameController.text == "ro1" &&
+                                    passwordController.text == "ro1"
+                                ){ String testUsername = 'Welcome ';
+                                  testUsername += usernameController.text;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(testUsername)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantOwnerHomePage(), ) );
+                                }
+                                else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('username or password is incorrect')));
                                 }
@@ -364,6 +375,5 @@ class _LoginPageState extends State<LoginPage> {
         )
       )
     );
-    throw UnimplementedError();
   }
 }
