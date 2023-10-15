@@ -30,7 +30,7 @@ class _RestaurantListState extends State<RestaurantList> {
   bool islooded = false;
 
 
-  void fetchData() async {
+  Future<void> fetchData() async {
     List<Map<String, dynamic>> temp = [];
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').get();
     querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
@@ -38,31 +38,25 @@ class _RestaurantListState extends State<RestaurantList> {
       documents = temp;
       islooded =true;
     });
-    void initState() {
-      super.initState();
-      fetchData();
-    }
 
+
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
   }
   @override
   Widget build(BuildContext context) {
-
     return   Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [ SBar1(callbackfunction: callback,),
-            Text(w),FloatingActionButton(onPressed: () async {
-              FirebaseFirestore firestore = FirebaseFirestore.instance;
-              CollectionReference collectionRef = firestore.collection('restaurant');
-              collectionRef.get().then((QuerySnapshot querySnapshot) {
-                for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-                  Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-                 print(data['Restaurant name']) ;
-                }
-              });
-            },) ,FloatingActionButton(onPressed: () { fetchData(); },), SizedBox(child: islooded?ListView.builder(
+            Text('restarents') , SizedBox(child: islooded?ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: documents.length, // Replace with the actual number of items
