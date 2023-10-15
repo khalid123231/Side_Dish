@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SBar1 extends StatelessWidget {
-  const SBar1({Key? key}) : super(key: key);
+  final Function callbackfunction;
+  final usernameController = TextEditingController();
+
+   SBar1({Key? key, required this.callbackfunction, }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +19,7 @@ class SBar1 extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              controller: usernameController,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Search',
@@ -22,7 +27,9 @@ class SBar1 extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              callbackfunction(usernameController.text);
+            },
             icon: const Icon(Icons.search),
           ),
         ],
