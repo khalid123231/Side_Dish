@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
+import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 import 'package:food_delivery_app_v3/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,6 +27,7 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
   final restaurantPhoneNumberController = TextEditingController();
   final restaurantAddressController = TextEditingController();
   final restaurantCityController = TextEditingController();
+  final tagsController = TextEditingController();
 
 
 
@@ -218,6 +220,28 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                               ),
                             ),
                             Container(
+
+                              margin: EdgeInsets.fromLTRB(0*fem, 10*fem, 170*fem, 6*fem),
+                              child: Text(
+                                'tags put , between them',
+                                style: SafeGoogleFont (
+                                  'Everett',
+                                  fontSize: 17*ffem,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.3529411765*ffem/fem,
+                                  letterSpacing: -0.17*fem,
+                                  color: Color(0xff292d32),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: MyTextField(
+                                controller: tagsController,
+                                hintText: 'Enter Restaurant tags',
+                                obsecureText: false,
+                              ),
+                            ),
+                            Container(
                               margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 180*fem, 6*fem),
                               child: Text(
                                 'Upload Restaurant logo',
@@ -301,6 +325,7 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                         .child(uniqueFileName);
                                     try {
                                       await referenceImageToUplode.putFile(File(logo!.path));
+
                                       imageUrl= await referenceImageToUplode.getDownloadURL();
 
                                     }catch (error) {
@@ -317,12 +342,16 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                     if(restaurantAddress1.docs.isEmpty==false){
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please use different address'),));
                                     }else{
+                                 List<String> tags = tagsController.text.split(',');
+                                 tags.remove("");
                                   await firestore.collection('restaurant').add({
+                                    'Restaurant owner username' : logedinUsername,
                                     'Restaurant name': restaurantNameController.text,
                                     'Restaurant phone number': restaurantPhoneNumberController.text,
                                     'Restaurant city': selectdC,
                                     'Restaurant address': restaurantAddressController.text,
                                     'Restaurant logo': imageUrl,
+                                    'Restaurant tags': tags,
                                   });
                                 }}}
 
