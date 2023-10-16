@@ -23,7 +23,9 @@ class _RestaurantListState extends State<RestaurantList> {
     setState(() {
       w=varw;
     });
-
+    if(w!=''){
+   fetchData1();}
+    else{fetchData();}
   }
 
   late List<Map<String, dynamic>> documents ;
@@ -33,6 +35,18 @@ class _RestaurantListState extends State<RestaurantList> {
   Future<void> fetchData() async {
     List<Map<String, dynamic>> temp = [];
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').get();
+    querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
+    setState(() {
+      documents = temp;
+      islooded =true;
+    });
+
+
+
+  }
+  Future<void> fetchData1() async {
+    List<Map<String, dynamic>> temp = [];
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').where('Restaurant name'  , isEqualTo: w ).get();
     querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
     setState(() {
       documents = temp;
@@ -56,7 +70,7 @@ class _RestaurantListState extends State<RestaurantList> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [ SBar1(callbackfunction: callback,),
-            Text('restarents') , SizedBox(child: islooded?ListView.builder(
+            Text('restarents') , SizedBox(height:500 ,child: islooded?ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: documents.length, // Replace with the actual number of items
@@ -67,10 +81,34 @@ class _RestaurantListState extends State<RestaurantList> {
                 return ListTile(leading: Image.network(documents[index]['Restaurant logo']),
 
                   title: Text(documents[index]['Restaurant name']
-                  ),
+
+                  ), trailing: IconButton(onPressed: () async {
+                         QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('favorites').where('Username',isEqualTo: logedinUsername ).where('Restaurant name',isEqualTo: documents[index]['Restaurant name'] ).get();
+                         if(querySnapshot.docs.isEmpty){
+                           await FirebaseFirestore.instance.collection('favorites').add({
+                             'Restaurant name':documents[index]['Restaurant name'],
+                             'Restaurant phone number':documents[index]['Restaurant phone number'],
+                             'Restaurant city':documents[index]['Restaurant city'],
+                             'Restaurant address':documents[index]['Restaurant address'],
+                             'Restaurant logo':documents[index]['Restaurant logo'],
+                             'Username':logedinUsername,
+
+                           });
+                           ScaffoldMessenger.of(context).showSnackBar(
+                               const SnackBar(content: Text('the Restaurant has been added to the favorites')));
+
+                         }else{
+                         await querySnapshot.docs.first.reference.delete();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                               const SnackBar(content: Text('the Restaurant has been removed to the favorites')));
+                         }
+
+
+
+                  }, icon: Icon(Icons.star),),
                 );
               },
-            ):Text('no data') ,height:500 ,)
+            ):Text('no data') ,)
 
           ],
         ),
