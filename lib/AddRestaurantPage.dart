@@ -342,8 +342,8 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                     if(restaurantAddress1.docs.isEmpty==false){
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please use different address'),));
                                     }else{
-                                 List<String> tags = tagsController.text.split(',');
-                                 tags.remove("");
+                                 List<String> tagsarray = tagsController.text.split(',');
+                                 tagsarray.remove("");
                                   await firestore.collection('restaurant').add({
                                     'Restaurant owner username' : logedinUsername,
                                     'Restaurant name': restaurantNameController.text,
@@ -351,7 +351,7 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                     'Restaurant city': selectdC,
                                     'Restaurant address': restaurantAddressController.text,
                                     'Restaurant logo': imageUrl,
-                                    'Restaurant tags': tags,
+                                    'Restaurant tags': tagsarray,
                                   });
                                 }}}
 
