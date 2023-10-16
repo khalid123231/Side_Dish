@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,11 @@ import 'package:food_delivery_app_v3/MyTextField.dart';
 import 'package:food_delivery_app_v3/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_delivery_app_v3/DropDownList.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+import 'LoginPage.dart';
 
 class AddRestaurantPage extends StatefulWidget{
   @override
@@ -19,21 +25,20 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
   final restaurantNameController = TextEditingController();
   final restaurantPhoneNumberController = TextEditingController();
   final restaurantAddressController = TextEditingController();
+  final restaurantCityController = TextEditingController();
+
 
 
 
 
   get onPressed => null;
+  XFile? logo;
+  String imageUrl='';
 
-  File get image => this.image;
 
-  set image(File image) {
-    this.image=image;
-  }
 
   @override
   Widget build(BuildContext context) {
-    File? image;
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -181,11 +186,13 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                   height: 1.3529411765*ffem/fem,
                                   letterSpacing: -0.17*fem,
                                   color: Color(0xff292d32),
+
                                 ),
                               ),
                             ),
                             Container(
-                                child: DropdownMenuCity(),
+                                child: dropdownL(),
+
                             ),
 
                             Container(
@@ -231,13 +238,9 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                   backgroundColor: Colors.white,
                                   foregroundColor: Colors.black,
                                 ), onPressed: () async {
-                                  try{
-                                 final image= await ImagePicker().pickImage(source: ImageSource.gallery);
-                                 if(image== null)return;
-                                 final imageTemp = File(image.path);
-                                 this.image= imageTemp;} on PlatformException catch (e){
-                                    print('Failed to pick image: $e');
-                                  }
+                                 ImagePicker imagePicker=ImagePicker();
+                                 logo= await imagePicker.pickImage(source: ImageSource.gallery);
+
                               }, child: Row(
                                 children: [
                                   Text("choose photo", style: SafeGoogleFont (
@@ -283,11 +286,38 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                           ),
                           child: Center(
                             child: TextButton(
-                              onPressed: (){
+                              onPressed: () async {
                                 if(_formfield.currentState!.validate()){
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Processing data')));
-                                }
+                                  if(logo!=null) {
+                                    Reference referenceRoot = FirebaseStorage
+                                        .instance.ref();
+                                    Reference referenceDirImages = referenceRoot
+                                        .child('images');
+                                    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+                                    Reference referenceImageToUplode = referenceDirImages
+                                        .child(uniqueFileName);
+                                    try {
+                                      await referenceImageToUplode.putFile(File(logo!.path));
+                                      imageUrl= await referenceImageToUplode.getDownloadURL();
+
+                                    }catch (error) {
+                                    }
+                                  }
+                                  if(imageUrl.isEmpty){
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please uplode an image'),));
+                                  }else{
+                                  await firestore.collection('restaurant').add({
+                                    'Restaurant name': restaurantNameController.text,
+                                    'Restaurant phone number': restaurantPhoneNumberController.text,
+                                    'Restaurant city': selectdC,
+                                    'Restaurant address': restaurantAddressController.text,
+                                    'Restaurant logo': imageUrl,
+                                  });
+                                }}
+
                               },
                               child: Text(
                                 'Add Restaurant',
@@ -318,19 +348,29 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
 
 
 
+/*class DropdownMenuCity1 extends StatefulWidget {
 
-//drop down menu code
-class DropdownMenuCity extends StatefulWidget {
   const DropdownMenuCity({super.key});
+
   @override
   State<DropdownMenuCity> createState() => _DropdownMenuCityState();
 }
-class _DropdownMenuCityState extends State<DropdownMenuCity> {
+class _DropdownMenuCityState1 extends State<DropdownMenuCity> {
   static const List<String> cityList = <String>['Riyadh', 'Jeddah'];
-  String dropdownValue = cityList.first;
+     String dropdownValue = '';
+
   @override
   Widget build(BuildContext context) {
-    return DropdownMenu<String>(
+    /*return DropdownButton<String>(
+      items: cityList.map((item) => DropdownMenuItem(value: item, child: Text(item))).toList(),
+      value: dropdownValue,
+      onChanged: (value) {
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+    );*/
+      return DropdownMenu<String>(
       initialSelection: cityList.first,
       onSelected: (String? value) {
         // This is called when the user selects an item.
@@ -339,8 +379,9 @@ class _DropdownMenuCityState extends State<DropdownMenuCity> {
         });
       },
       dropdownMenuEntries: cityList.map<DropdownMenuEntry<String>>((String value) {
+
         return DropdownMenuEntry<String>(value: value, label: value);
       }).toList(),
     );
   }
-}
+}*/
