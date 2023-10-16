@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-String selectdC='';
+String selectdC='Riyadh';
 class dropdownL extends StatefulWidget {
   @override
   State<dropdownL> createState() => _dropdownLState();
