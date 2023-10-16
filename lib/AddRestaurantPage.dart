@@ -306,9 +306,17 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                     }catch (error) {
                                     }
                                   }
+                                  CollectionReference restaurantAddress0 =
+                                  FirebaseFirestore.instance.collection('restaurant');
+                                  QuerySnapshot restaurantAddress1 = await restaurantAddress0
+                                      .where('Restaurant address', isEqualTo: restaurantAddressController.text)
+                                      .get();
                                   if(imageUrl.isEmpty){
                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please uplode an image'),));
                                   }else{
+                                    if(restaurantAddress1.docs.isEmpty==false){
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please use different address'),));
+                                    }else{
                                   await firestore.collection('restaurant').add({
                                     'Restaurant name': restaurantNameController.text,
                                     'Restaurant phone number': restaurantPhoneNumberController.text,
@@ -316,7 +324,7 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                     'Restaurant address': restaurantAddressController.text,
                                     'Restaurant logo': imageUrl,
                                   });
-                                }}
+                                }}}
 
                               },
                               child: Text(
