@@ -6,6 +6,7 @@ import 'package:food_delivery_app_v3/AddRestaurantPage.dart';
 import 'package:food_delivery_app_v3/HomePage.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
 import 'package:food_delivery_app_v3/SignUpPage.dart';
+import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 import 'package:food_delivery_app_v3/utils.dart';
 final firestore = FirebaseFirestore.instance;
 
@@ -328,18 +329,19 @@ class _LoginPageState extends State<LoginPage> {
                                   .get();
                               if(_formfield.currentState!.validate()){
                                 if(customerSnapshot1.docs.isNotEmpty
-                                ){ScaffoldMessenger.of(context).showSnackBar(
+                                ){ logedinUsername = usernameController.text;
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Welcome our customers')));
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
                                 }
                                 else if(customerSnapshot2.docs.isNotEmpty
-                                ){
+                                ){ logedinUsername = usernameController.text;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Welcome our Driver')));
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
                                 }
                                 else if(customerSnapshot3.docs.isNotEmpty
-                                ){
+                                ){ logedinUsername = usernameController.text;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Welcome Restaurant Owner')));
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
