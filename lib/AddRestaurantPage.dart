@@ -352,6 +352,7 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                     'Restaurant address': restaurantAddressController.text,
                                     'Restaurant logo': imageUrl,
                                     'Restaurant tags': tagsarray,
+                                    'has offer': false,
                                   });
                                 }}}
 
