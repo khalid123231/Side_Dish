@@ -37,7 +37,7 @@ class _EdittagsState extends State<Edittags> {
     FirebaseFirestore.instance.collection('tags');
     QuerySnapshot alltagsSnapshot1 = await tagsCollection
         .where('alltags', arrayContainsAny: tagsarray)
-        .get();
+        .get();//
     if(alltagsSnapshot1.docs.isEmpty){
       await firestore.collection('tags').add({
         'alltags': tagsarray,
