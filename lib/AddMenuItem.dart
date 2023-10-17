@@ -34,6 +34,7 @@ class _AddMenuItemState extends State<AddMenuItem> {
         })
         .then((value) => print("Item added"))
         .catchError((error) => print("Failed to add item: $error"));
+
   }
 
   @override
@@ -168,6 +169,7 @@ class _AddMenuItemState extends State<AddMenuItem> {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please uplode an image'),));
                             }else {
                               addMenuItem();
+                              Navigator.pop(context);
                             }}
                         else{
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please choose a different name'),));
