@@ -170,10 +170,7 @@ class _AddMenuItemState extends State<AddMenuItem> {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please uplode an image'),));
                             }else {
                               addMenuItem();
-                              Navigator.push(context, MaterialPageRoute(builder:(_) => RestaurantPage())).then((value) {
-                                // you have come back to the pageA, now perform your logic
-                                value.fetchData();
-                              });
+                              Navigator.pop(context);
                             }}
                         else{
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please choose a different name'),));
