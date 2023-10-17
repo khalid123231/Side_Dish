@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app_v3/FavoriteList.dart';
 import 'package:food_delivery_app_v3/RestaurantsList.dart';
+import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 
 class MyHomePage extends StatefulWidget{
   @override
@@ -22,7 +23,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("HomePage"),
+
+        title: Text("welcome " +logedinUsername),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),

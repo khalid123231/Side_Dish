@@ -96,7 +96,7 @@ class _RestaurantListState extends State<RestaurantList> {
             ), textAlign: TextAlign.left,) ,SizedBox(width: 500, height: 100,child:Padding( child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                ChoiceChip(
+                ChoiceChip(selectedColor:  Color(0xffed9b11),
                   label: Text('all'),
                   selected: selectedChoice == 'all',
                   onSelected: (bool selected) {
@@ -107,7 +107,7 @@ class _RestaurantListState extends State<RestaurantList> {
                     });
                   },
                 )  ,SizedBox(width: 8),
-                ChoiceChip(
+                ChoiceChip(selectedColor:  Color(0xffed9b11),
                   label: Text('offers'),
                   selected: selectedChoice == 'offers',
                   onSelected: (bool selected) {
