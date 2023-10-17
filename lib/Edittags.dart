@@ -10,6 +10,8 @@ import 'package:food_delivery_app_v3/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:food_delivery_app_v3/AddRestaurantPage.dart';
 
+import 'LoginPage.dart';
+
 class Edittags extends StatefulWidget {
   @override
   State<Edittags> createState() => _EdittagsState();
@@ -31,6 +33,16 @@ class _EdittagsState extends State<Edittags> {
     final fieldsToUpdate = {
       'Restaurant tags' : tagsarray,
     };
+    CollectionReference tagsCollection =
+    FirebaseFirestore.instance.collection('tags');
+    QuerySnapshot alltagsSnapshot1 = await tagsCollection
+        .where('alltags', arrayContainsAny: tagsarray)
+        .get();
+    if(alltagsSnapshot1.docs.isEmpty){
+      await firestore.collection('tags').add({
+        'alltags': tagsarray,
+      });
+    }
     return tagsSnapShot.docs.first.reference.update(fieldsToUpdate);
     }
 
