@@ -41,12 +41,12 @@ class _EditMenuItemState extends State<EditMenuItem> {
     //we should add item describtion and make it changable
     //are change the key
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('menu items').where('Restaurant address', isEqualTo: restaurantAddress).where('item name', isEqualTo: menuItemName).get();
-    await querySnapshot.docs.first.reference.update({
-      //'item name': itemNameController.text,
-      'price' : itemPriceController
-    });
+    final fieldsToUpdate = {
+      'price' : itemPriceController.text,
+    };
+    await querySnapshot.docs.first.reference.update( fieldsToUpdate );
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('the Item Has been Deleted ')));
+        const SnackBar(content: Text('the Item price Has been changed')));
     Navigator.pop(context);
   }
   Future<void> deleteItem() async{
