@@ -17,6 +17,7 @@ class RestaurantList extends StatefulWidget {
 }
 
 class _RestaurantListState extends State<RestaurantList> {
+  String selectedChoice ='';
 
   String w ='';
   callback(varw){
@@ -37,6 +38,7 @@ class _RestaurantListState extends State<RestaurantList> {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').get();
     querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
     setState(() {
+      selectedChoice='all';
       documents = temp;
       islooded =true;
     });
@@ -49,6 +51,20 @@ class _RestaurantListState extends State<RestaurantList> {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').where('Restaurant name'  , isEqualTo: w ).get();
     querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
     setState(() {
+
+      documents = temp;
+      islooded =true;
+    });
+
+
+
+  }
+  Future<void> fetchData2() async {
+    List<Map<String, dynamic>> temp = [];
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').where('has offer'  , isEqualTo: true ).get();
+    querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
+    setState(() {
+
       documents = temp;
       islooded =true;
     });
@@ -60,6 +76,7 @@ class _RestaurantListState extends State<RestaurantList> {
   @override
   void initState() {
     super.initState();
+
     fetchData();
   }
   @override
@@ -67,10 +84,42 @@ class _RestaurantListState extends State<RestaurantList> {
     return   Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+
           mainAxisSize: MainAxisSize.min,
           children: [ SBar1(callbackfunction: callback,),
-            Text('restarents') , SizedBox(height:500 ,child: islooded?ListView.builder(
+            Text('restarents', style: TextStyle(
+              fontSize: 32, // Adjust the font size to make it big
+              fontWeight: FontWeight.bold, // Make the text bold
+              fontFamily: 'Pacifico', // Use a stylish font
+              fontStyle: FontStyle.normal, // Make the text italic
+              color: Colors.black38, // Use a stylish color
+            ), textAlign: TextAlign.left,) ,SizedBox(width: 500, height: 100,child:Padding( child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                ChoiceChip(
+                  label: Text('all'),
+                  selected: selectedChoice == 'all',
+                  onSelected: (bool selected) {
+                    setState(() {
+                      fetchData();
+                      selectedChoice = (selected ? 'all' : null)!;
+
+                    });
+                  },
+                )  ,SizedBox(width: 8),
+                ChoiceChip(
+                  label: Text('offers'),
+                  selected: selectedChoice == 'offers',
+                  onSelected: (bool selected) {
+                    setState(() {
+                      fetchData2();
+                      selectedChoice = (selected ? 'offers' : null)!;
+                    });
+                  },
+                ),
+
+              ],
+            ), padding:   EdgeInsets.symmetric(horizontal: 40.0),)), SizedBox(height:400 ,child: islooded?ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: documents.length, // Replace with the actual number of items
@@ -78,14 +127,45 @@ class _RestaurantListState extends State<RestaurantList> {
 
 
 
-                return ListTile(leading: Image.network(documents[index]['Restaurant logo']),
+                return Container(  decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey,
+                      width: 2,
+                    ),
+                  ),
+                ),child: ListTile(subtitle: Text(
+                  documents[index]['Restaurant tags'][0]+',' +  documents[index]['Restaurant tags'][1],
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
 
-                  title: Text(documents[index]['Restaurant name']
+                  leading:ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    documents[index]['Restaurant logo'],
+                    height: 60,
+                    width: 60,
+                    fit: BoxFit.cover,
+                  ),
+                ),tileColor: Colors.grey[50],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
+                  ),
 
+                  title: Text(
+                    documents[index]['Restaurant name'],
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ), trailing: IconButton(onPressed: () async {
-                         QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('favorites').where('Username',isEqualTo: logedinUsername ).where('Restaurant name',isEqualTo: documents[index]['Restaurant name'] ).get();
+                         QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('favorites').where('Username',isEqualTo: logedinUsername ).where('Restaurant address',isEqualTo: documents[index]['Restaurant address'] ).get();
                          if(querySnapshot.docs.isEmpty){
                            await FirebaseFirestore.instance.collection('favorites').add({
+                             'Restaurant tags':documents[index]['Restaurant tags'],
                              'Restaurant name':documents[index]['Restaurant name'],
                              'Restaurant phone number':documents[index]['Restaurant phone number'],
                              'Restaurant city':documents[index]['Restaurant city'],
@@ -106,9 +186,9 @@ class _RestaurantListState extends State<RestaurantList> {
 
 
                   }, icon: Icon(Icons.star),),
-                );
+                ));
               },
-            ):Text('no data') ,)
+      ):Text('no data') ,)
 
           ],
         ),

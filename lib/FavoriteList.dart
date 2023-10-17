@@ -41,12 +41,42 @@ class _FavoriteListState extends State<FavoriteList> {
 
 
 
-          return ListTile(leading: Image.network(documents[index]['Restaurant logo']),
+          return Container(  decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey,
+                width: 2,
+              ),
+            ),
+          ),child: ListTile(subtitle: Text(
+            documents[index]['Restaurant tags'][0]+',' +  documents[index]['Restaurant tags'][1],
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey,
+            ),
+          ),
 
-            title: Text(documents[index]['Restaurant name']
+            leading:ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                documents[index]['Restaurant logo'],
+                height: 60,
+                width: 60,
+                fit: BoxFit.cover,
+              ),
+            ),tileColor: Colors.grey[50],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
+            ),
 
+            title: Text(
+              documents[index]['Restaurant name'],
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ), trailing: IconButton(onPressed: () async {
-              QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('favorites').where('Username',isEqualTo: logedinUsername ).where('Restaurant name',isEqualTo: documents[index]['Restaurant name'] ).get();
+              QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('favorites').where('Username',isEqualTo: logedinUsername ).where('Restaurant address',isEqualTo: documents[index]['Restaurant address'] ).get();
               if(querySnapshot.docs.isEmpty){
                 await FirebaseFirestore.instance.collection('favorites').add({
                   'Restaurant name':documents[index]['Restaurant name'],
@@ -68,9 +98,8 @@ class _FavoriteListState extends State<FavoriteList> {
 
 
 
-
             }, icon: Icon(Icons.star),),
-          );
+          ));
         },
       ):Text('no data') ,)),
     );

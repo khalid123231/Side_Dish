@@ -10,6 +10,7 @@ import 'package:food_delivery_app_v3/userDetails.dart';
 import 'package:food_delivery_app_v3/utils.dart';
 
 import 'Details.dart';
+import 'khalids material/global variabls/v.dart';
 
 enum userRoleEnum {Customer, Driver, RestaurantOwner}
 
@@ -429,7 +430,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     QuerySnapshot customerSnapshot = await customerCollection
                                         .where('Username', isEqualTo: usernameController.text)
                                         .get();
-
+                                    logedinUsername = usernameController.text;
 
                                     await firestore.collection('customer').add({
                                       'Full name': fullNameController.text,
@@ -441,6 +442,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         const SnackBar(content: Text('Welcome to our customers')));
                                   }
                                   else if (_userRoleEnum == userRoleEnum.Driver){
+                                    logedinUsername = usernameController.text;
                                     await firestore.collection('driver').add({
                                       'Full name': fullNameController.text,
                                       'Username': usernameController.text,
@@ -451,6 +453,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         const SnackBar(content: Text('Welcome to our drivers')));
                                   }
                                   else if (_userRoleEnum == userRoleEnum.RestaurantOwner){
+                                    logedinUsername = usernameController.text;
                                     await firestore.collection('restaurant owner').add({
                                       'Full name': fullNameController.text,
                                       'Username': usernameController.text,
