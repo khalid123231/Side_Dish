@@ -87,7 +87,7 @@ class _RestaurantListState extends State<RestaurantList> {
 
 
           children: [ SBar1(callbackfunction: callback,),
-            Text('restarents', style: TextStyle(
+            Text('restaurants', style: TextStyle(
               fontSize: 32, // Adjust the font size to make it big
               fontWeight: FontWeight.bold, // Make the text bold
               fontFamily: 'Pacifico', // Use a stylish font
