@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
 import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 import 'package:food_delivery_app_v3/utils.dart';
+
+import 'RestaurantPage.dart';
 class EditMenuItem extends StatefulWidget{
   @override
   State<EditMenuItem> createState() => _EditMenuItemState();
@@ -47,7 +49,10 @@ class _EditMenuItemState extends State<EditMenuItem> {
     await querySnapshot.docs.first.reference.update( fieldsToUpdate );
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('the Item price Has been changed')));
-    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder:(_) => RestaurantPage())).then((value) {
+      // you have come back to the pageA, now perform your logic
+      value.fetchData();
+    });
   }
   Future<void> deleteItem() async{
     //confirmation is still in progress
@@ -55,7 +60,10 @@ class _EditMenuItemState extends State<EditMenuItem> {
     await querySnapshot.docs.first.reference.delete();
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('the Item Has been Deleted ')));
-    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder:(_) => RestaurantPage())).then((value) {
+      // you have come back to the pageA, now perform your logic
+      value.fetchData();
+    });
   }
 
   @override

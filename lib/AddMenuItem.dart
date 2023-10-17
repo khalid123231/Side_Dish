@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
+import 'package:food_delivery_app_v3/RestaurantPage.dart';
 import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 import 'package:food_delivery_app_v3/utils.dart';
 import 'package:image_picker/image_picker.dart';
@@ -169,7 +170,10 @@ class _AddMenuItemState extends State<AddMenuItem> {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please uplode an image'),));
                             }else {
                               addMenuItem();
-                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder:(_) => RestaurantPage())).then((value) {
+                                // you have come back to the pageA, now perform your logic
+                                value.fetchData();
+                              });
                             }}
                         else{
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please choose a different name'),));
