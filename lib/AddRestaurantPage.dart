@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
+import 'package:food_delivery_app_v3/RestaurantOwnerHomePage.dart';
 import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 import 'package:food_delivery_app_v3/utils.dart';
 import 'package:flutter/material.dart';
@@ -355,7 +356,7 @@ class _AddRestaurantPageState extends State<AddRestaurantPage> {
                                     'has offer': false,
                                   });
                                 }}}
-
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantOwnerHomePage(), ) );
                               },
                               child: Text(
                                 'Add Restaurant',
