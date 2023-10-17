@@ -49,10 +49,7 @@ class _EditMenuItemState extends State<EditMenuItem> {
     await querySnapshot.docs.first.reference.update( fieldsToUpdate );
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('the Item price Has been changed')));
-    Navigator.push(context, MaterialPageRoute(builder:(_) => RestaurantPage())).then((value) {
-      // you have come back to the pageA, now perform your logic
-      value.fetchData();
-    });
+    Navigator.pop(context);
   }
   Future<void> deleteItem() async{
     //confirmation is still in progress
@@ -60,10 +57,7 @@ class _EditMenuItemState extends State<EditMenuItem> {
     await querySnapshot.docs.first.reference.delete();
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('the Item Has been Deleted ')));
-    Navigator.push(context, MaterialPageRoute(builder:(_) => RestaurantPage())).then((value) {
-      // you have come back to the pageA, now perform your logic
-      value.fetchData();
-    });
+    Navigator.pop(context);
   }
 
   @override
