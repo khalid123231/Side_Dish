@@ -85,14 +85,14 @@ class _RestaurantListState extends State<RestaurantList> {
       body: SingleChildScrollView(
         child: Column(
 
-          mainAxisSize: MainAxisSize.min,
+
           children: [ SBar1(callbackfunction: callback,),
             Text('restarents', style: TextStyle(
               fontSize: 32, // Adjust the font size to make it big
               fontWeight: FontWeight.bold, // Make the text bold
               fontFamily: 'Pacifico', // Use a stylish font
               fontStyle: FontStyle.normal, // Make the text italic
-              color: Colors.black38, // Use a stylish color
+              color: Colors.blue, // Use a stylish color
             ), textAlign: TextAlign.left,) ,SizedBox(width: 500, height: 100,child:Padding( child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
