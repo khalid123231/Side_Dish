@@ -2,9 +2,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app_v3/AddRestaurantPage.dart';
+//import 'package:food_delivery_app_v3/AddRestaurantPage.dart';
 import 'package:food_delivery_app_v3/HomePage.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
+import 'package:food_delivery_app_v3/RestaurantOwnerHomePage.dart';
 import 'package:food_delivery_app_v3/SignUpPage.dart';
 import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 import 'package:food_delivery_app_v3/utils.dart';
@@ -344,7 +345,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ){ logedinUsername = usernameController.text;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Welcome Restaurant Owner')));
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
+                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantOwnerHomePage(), ) );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('username or password is incorrect')));
@@ -374,6 +376,5 @@ class _LoginPageState extends State<LoginPage> {
         )
       )
     );
-    throw UnimplementedError();
   }
 }
