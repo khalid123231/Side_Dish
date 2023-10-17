@@ -30,7 +30,8 @@ class _RestaurantOwnerHomePageState extends State<RestaurantOwnerHomePage> {
 
   Future<void> fetchData() async {
     List<Map<String, dynamic>> temp = [];
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').get();
+    //QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant') .where('Restaurant owner username', isEqualTo: logedinUsername).get();
     querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
     setState(() {
       documents = temp;
