@@ -68,7 +68,7 @@ class _EditMenuItemState extends State<EditMenuItem> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add an item to menu"),
+        title: Text("Add an item to menu")
       ),
       body: Form(
         key: formState,

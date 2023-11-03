@@ -23,6 +23,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
   bool islooded = false;
   late Image menuItem;
 
+
   Future<void> fetchData() async {
     List<Map<String, dynamic>> temp = [];
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('menu items').where('Restaurant address', isEqualTo: restaurantAddress).get();
@@ -36,6 +37,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
   @override
   void initState() {
     super.initState();
+
     fetchData();
   }
   @override
@@ -52,11 +54,12 @@ class _RestaurantPageState extends State<RestaurantPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         onPressed: () {
-          Navigator.push(
+         Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => AddMenuItem(),
-              ));
+              )) ;
+
         },
         child: Icon(Icons.add),
       ),

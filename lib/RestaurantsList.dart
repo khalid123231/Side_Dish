@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app_v3/MenuList.dart';
 import 'package:food_delivery_app_v3/khalids%20material/SBar.dart';
 import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 
@@ -153,7 +154,16 @@ class _RestaurantListState extends State<RestaurantList> {
                 ),tileColor: Colors.grey[50],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
-                  ),
+                  ),onTap: (){
+                  restaurantName = documents[index]['Restaurant name'];
+                  restaurantAddress = documents[index]['Restaurant address'];
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MenuList(),
+                      )) ;
+
+                  },
 
                   title: Text(
                     documents[index]['Restaurant name'],
