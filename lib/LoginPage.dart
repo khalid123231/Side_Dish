@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //import 'package:food_delivery_app_v3/AddRestaurantPage.dart';
 import 'package:food_delivery_app_v3/HomePage.dart';
 import 'package:food_delivery_app_v3/MyTextField.dart';
+import 'package:food_delivery_app_v3/RestOwnerHomePage2.dart';
 import 'package:food_delivery_app_v3/RestaurantOwnerHomePage.dart';
 import 'package:food_delivery_app_v3/SignUpPage.dart';
 import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
@@ -346,7 +347,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Welcome Restaurant Owner')));
                                   //Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantOwnerHomePage(), ) );
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => RestOwnerHomePage2(), ) );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('username or password is incorrect')));
