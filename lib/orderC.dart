@@ -28,6 +28,7 @@ class _OrderCState extends State<OrderC> {
           'Driver':'',
 
         });
+        sum=0;
       },),
     );
   }
