@@ -1,6 +1,9 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app_v3/orderC.dart';
 
 import 'khalids material/global variabls/v.dart';
 
@@ -13,7 +16,12 @@ class MenuList extends StatefulWidget {
 
 class _MenuListState extends State<MenuList> {
   late List<Map<String, dynamic>> documents ;
+   List<String> item = [];
+  List<int> price = [];
+   List <int>count = [];
+  int counter =0;
   bool islooded = false;
+  bool isNotEmpty = false;
   Future<void> fetchData() async {
     List<Map<String, dynamic>> temp = [];
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('menu items').where('Restaurant address', isEqualTo: restaurantAddress).get();
@@ -34,7 +42,17 @@ class _MenuListState extends State<MenuList> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    floatingActionButton: Visibility(child: FloatingActionButton.extended(onPressed: (){
+      prices = price;
+      items=item;
+      counts=count;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrderC(),
+          )) ;
+    }, label: Text('cart : ${counter}') , icon: Icon(Icons.shopping_cart),), visible: isNotEmpty ,) ,
       appBar: AppBar(title: Text(restaurantName +' menu'),),
       body: SingleChildScrollView( child: SizedBox(height:500 ,child: islooded?ListView.builder(
         scrollDirection: Axis.vertical,
@@ -57,7 +75,55 @@ class _MenuListState extends State<MenuList> {
               fontSize: 14,
               color: Colors.grey,
             ),
-          ),
+          ),trailing: IconButton(onPressed: () {
+            bool x = true;
+            if(item.isEmpty){
+              setState(() {
+                item.add(documents[index]['item name']);
+                price.add(int.parse(documents[index]['price']));
+                count.add(1);
+                counter++;
+                print(item);
+
+                x= false;
+              });
+
+
+            }
+            if(x){
+            for(int i = 0 ; i<counter ;i++){
+              if(documents[index]['item name'] ==item[i]){
+                setState(() {
+                  price[i]+=int.parse(documents[index]['price']);
+
+                  count[i]++;
+
+                  x= false;
+                });
+
+                break;
+
+              }
+            }}
+            if(x){
+              setState(() {
+                item.add(documents[index]['item name']);
+                count.add(1);
+                price.add(int.parse(documents[index]['price']));
+                counter++;
+
+              });
+
+            }
+            setState(() {
+              isNotEmpty= item.isNotEmpty;
+            });
+            print(item);
+            print(count);
+            print(counter);
+
+            print(price);
+          }, icon: Icon(Icons.add),),
 
             leading:ClipRRect(
               borderRadius: BorderRadius.circular(10),
