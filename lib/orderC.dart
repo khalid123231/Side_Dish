@@ -106,7 +106,15 @@ class _OrderCState extends State<OrderC> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
-                ), trailing: Text('${counts[index]}'),
+                ), trailing: Text('${counts[index]}'),leading:ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      logos[index],
+                      height: 60,
+                      width: 60,
+                      fit: BoxFit.cover,
+                    ),
+                  )
               ));
             },
           ):Text('no data') ,), Text('total ${s}')],

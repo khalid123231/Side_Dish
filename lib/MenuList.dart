@@ -17,6 +17,7 @@ class MenuList extends StatefulWidget {
 class _MenuListState extends State<MenuList> {
   late List<Map<String, dynamic>> documents ;
    List<String> item = [];
+  List<String> lo = [];
   List<int> price = [];
    List <int>count = [];
   int counter =0;
@@ -41,6 +42,7 @@ class _MenuListState extends State<MenuList> {
     if(item.isEmpty){
       setState(() {
         item.add(documents[index]['item name']);
+        lo.add(documents[index]['menu item photo']);
         price.add(int.parse(documents[index]['price']));
         count.add(1);
         counter++;
@@ -70,6 +72,7 @@ class _MenuListState extends State<MenuList> {
       setState(() {
         item.add(documents[index]['item name']);
         count.add(1);
+        lo.add(documents[index]['menu item photo']);
         price.add(int.parse(documents[index]['price']));
         counter++;
 
@@ -97,6 +100,7 @@ class _MenuListState extends State<MenuList> {
 
     }else{
       setState(() {
+        lo.removeAt(w);
         item.removeAt(w);
         count.removeAt(w);
         price.removeAt(w);
@@ -122,6 +126,7 @@ class _MenuListState extends State<MenuList> {
       prices = price;
       items=item;
       counts=count;
+      logos=lo;
       Navigator.push(
           context,
           MaterialPageRoute(
