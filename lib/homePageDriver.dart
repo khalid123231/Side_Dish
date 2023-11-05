@@ -37,7 +37,7 @@ class _HomePageDriverState extends State<HomePageDriver> {
         child: pages[curentPage],
       ),
 
-      bottomNavigationBar: NavigationBar(destinations: const [NavigationDestination(icon:Icon(Icons.home), label: 'Orders'),NavigationDestination(icon:Icon(Icons.star), label: 'Accepted Orders')],onDestinationSelected:(int index){
+      bottomNavigationBar: NavigationBar(destinations: const [NavigationDestination(icon:Icon(Icons.home), label: 'Orders'),NavigationDestination(icon:Icon(Icons.delivery_dining), label: 'Accepted Orders')],onDestinationSelected:(int index){
         setState(() {
           curentPage = index;
         });
