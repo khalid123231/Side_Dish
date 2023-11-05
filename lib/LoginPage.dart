@@ -8,6 +8,7 @@ import 'package:food_delivery_app_v3/MyTextField.dart';
 import 'package:food_delivery_app_v3/RestOwnerHomePage2.dart';
 import 'package:food_delivery_app_v3/RestaurantOwnerHomePage.dart';
 import 'package:food_delivery_app_v3/SignUpPage.dart';
+import 'package:food_delivery_app_v3/homePageDriver.dart';
 import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 import 'package:food_delivery_app_v3/utils.dart';
 final firestore = FirebaseFirestore.instance;
@@ -340,7 +341,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ){ logedinUsername = usernameController.text;
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Welcome our Driver')));
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePageDriver(), ) );
                                 }
                                 else if(customerSnapshot3.docs.isNotEmpty
                                 ){ logedinUsername = usernameController.text;
