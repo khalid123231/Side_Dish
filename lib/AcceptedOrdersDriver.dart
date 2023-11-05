@@ -83,23 +83,23 @@ class _AcceptedOrdersDriverState extends State<AcceptedOrdersDriver> {
                 ),trailing: IconButton(onPressed: () {
                   deliverOrder(index);
                 }, icon: Icon(Icons.check_circle_rounded),),
-                  /*leading:ClipRRect(
+                  leading:ClipRRect(
 
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
-                      documents[index]['Restaurant logo'],
+                      documents[index]['logo'],
                       height: 60,
                       width: 60,
                       fit: BoxFit.cover,
                     ),
 
-                  ),*/tileColor: Colors.grey[50],
+                  ),tileColor: Colors.grey[50],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
                   ),
 
                   title: Text(
-                    documents[index]['Status'],
+                    documents[index]['Restaurant Name'],
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
