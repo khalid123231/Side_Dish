@@ -41,13 +41,18 @@ class _OrderCState extends State<OrderC> {
     return Scaffold( appBar:AppBar(),floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended( backgroundColor: Colors.blueAccent, onPressed: () async {
         print(logedinUsername);
-        CollectionReference customerCollection1 =
+       CollectionReference customerCollection1 =
         FirebaseFirestore.instance.collection('order');
         QuerySnapshot customerSnapshot1 = await customerCollection1
-            .where('Status', isNotEqualTo:"delivered" )
-
+            .where('Status', isEqualTo:"sent" ).where('Username' , isEqualTo: logedinUsername )
             .get();
-        if(customerSnapshot1.docs.isEmpty){
+        QuerySnapshot customerSnapshot2 = await customerCollection1
+            .where('Status', isEqualTo:"on way" ).where('Username' , isEqualTo: logedinUsername )
+            .get();
+        QuerySnapshot customerSnapshot3 = await customerCollection1
+            .where('Status', isEqualTo:"accepted" ).where('Username' , isEqualTo: logedinUsername )
+            .get();
+        if(customerSnapshot3.docs.isEmpty && customerSnapshot1.docs.isEmpty && customerSnapshot2.docs.isEmpty){
         prices.forEach((element) { sum+=element;});
         print(sum);
         await FirebaseFirestore.instance.collection('order').add({
