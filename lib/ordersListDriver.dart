@@ -91,22 +91,22 @@ class _ordersListDriverState extends State<ordersListDriver> {
                 ),trailing: IconButton(onPressed: () {
                   acceptOrder(index);
                 }, icon: Icon(Icons.check_circle_rounded),),
-                  /*leading:ClipRRect(
+                  leading:ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
-                      documents[index]['Restaurant logo'],
+                      documents[index]['logo'],
                       height: 60,
                       width: 60,
                       fit: BoxFit.cover,
                     ),
-                  ),*/
+                  ),
                   tileColor: Colors.grey[50],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
                   ),
 
                   title: Text(
-                    documents[index]['Restaurant address'],
+                    documents[index]['Restaurant Name'],
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
