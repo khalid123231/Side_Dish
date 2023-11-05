@@ -157,6 +157,8 @@ class _RestaurantListState extends State<RestaurantList> {
                   ),onTap: (){
                   restaurantName = documents[index]['Restaurant name'];
                   restaurantAddress = documents[index]['Restaurant address'];
+                  logo =documents[index]['Restaurant logo'];
+                  ownerName=documents[index]['Restaurant owner username'];
                   Navigator.push(
                       context,
                       MaterialPageRoute(

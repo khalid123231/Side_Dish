@@ -34,6 +34,81 @@ class _MenuListState extends State<MenuList> {
 
 
 
+
+  }
+  void addToCart(int index){
+    bool x = true;
+    if(item.isEmpty){
+      setState(() {
+        item.add(documents[index]['item name']);
+        price.add(int.parse(documents[index]['price']));
+        count.add(1);
+        counter++;
+        print(item);
+
+        x= false;
+      });
+
+
+    }
+    if(x){
+      for(int i = 0 ; i<counter ;i++){
+        if(documents[index]['item name'] ==item[i]){
+          setState(() {
+            price[i]+=int.parse(documents[index]['price']);
+
+            count[i]++;
+
+            x= false;
+          });
+
+          break;
+
+        }
+      }}
+    if(x){
+      setState(() {
+        item.add(documents[index]['item name']);
+        count.add(1);
+        price.add(int.parse(documents[index]['price']));
+        counter++;
+
+      });
+
+    }
+    setState(() {
+      isNotEmpty= item.isNotEmpty;
+    });
+    print(item);
+    print(count);
+    print(counter);
+
+    print(price);
+
+  }
+  void removeFromCart(int index ){
+    int w = item.indexOf(documents[index]['item name']);
+    if(count[w]!=1){
+      setState(() {
+        count[w]--;
+        price[w]-=int.parse(documents[index]['price']);
+      });
+
+
+    }else{
+      setState(() {
+        item.removeAt(w);
+        count.removeAt(w);
+        price.removeAt(w);
+        counter--;
+      });
+
+
+    }
+    print(price);
+    print(item);
+    print(count);
+
   }
   void initState() {
     super.initState();
@@ -42,8 +117,8 @@ class _MenuListState extends State<MenuList> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    floatingActionButton: Visibility(child: FloatingActionButton.extended(onPressed: (){
+    return Scaffold(  floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    floatingActionButton: Visibility(child: FloatingActionButton.extended(backgroundColor: Colors.blueAccent,onPressed: (){
       prices = price;
       items=item;
       counts=count;
@@ -59,6 +134,15 @@ class _MenuListState extends State<MenuList> {
         shrinkWrap: true,
         itemCount: documents.length, // Replace with the actual number of items
         itemBuilder: (context, index) {
+        int w=   item.indexOf(documents[index]['item name']);
+        int q=0;
+        bool sq;
+          if(w==-1){
+            sq=true;
+          }else{
+            sq=false;
+            q=count[w];
+          }
 
 
 
@@ -75,55 +159,13 @@ class _MenuListState extends State<MenuList> {
               fontSize: 14,
               color: Colors.grey,
             ),
-          ),trailing: IconButton(onPressed: () {
-            bool x = true;
-            if(item.isEmpty){
-              setState(() {
-                item.add(documents[index]['item name']);
-                price.add(int.parse(documents[index]['price']));
-                count.add(1);
-                counter++;
-                print(item);
-
-                x= false;
-              });
-
-
-            }
-            if(x){
-            for(int i = 0 ; i<counter ;i++){
-              if(documents[index]['item name'] ==item[i]){
-                setState(() {
-                  price[i]+=int.parse(documents[index]['price']);
-
-                  count[i]++;
-
-                  x= false;
-                });
-
-                break;
-
-              }
-            }}
-            if(x){
-              setState(() {
-                item.add(documents[index]['item name']);
-                count.add(1);
-                price.add(int.parse(documents[index]['price']));
-                counter++;
-
-              });
-
-            }
-            setState(() {
-              isNotEmpty= item.isNotEmpty;
-            });
-            print(item);
-            print(count);
-            print(counter);
-
-            print(price);
-          }, icon: Icon(Icons.add),),
+          ),trailing: sq? IconButton(onPressed: () {
+            addToCart(index);
+          }, icon: Icon(Icons.add),): Row(mainAxisSize: MainAxisSize.min, children: [IconButton(onPressed: () {
+            addToCart(index);
+          }, icon: Icon(Icons.add),), Text('${q}'), IconButton(onPressed: () {
+            removeFromCart(index);
+          }, icon: Icon(Icons.remove),)],),
 
             leading:ClipRRect(
               borderRadius: BorderRadius.circular(10),
