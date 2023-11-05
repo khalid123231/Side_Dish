@@ -45,7 +45,7 @@ class _RestaurantOwnerOrdersPageState extends State<RestaurantOwnerOrdersPage> {
     //
     //.where('Status', isEqualTo: 'Sent')
         .get();
-    querySnapshotAll.docs..forEach((e) {
+    querySnapshotAll.docs.forEach((e) {
       allOr.add(e.data() as Map<String, dynamic>);
     });
     setState(() {
@@ -92,22 +92,7 @@ class _RestaurantOwnerOrdersPageState extends State<RestaurantOwnerOrdersPage> {
     });
 */
   }
-  String fetchRestLogo(String address){
-    String logo = "";
-    for(int k =0;k<restList.length;k++){
-    if(restList[k]['Restaurant address'] == address)
-      logo = restList[k]['Restaurant logo'];
-    }
-    return logo;
-  }
-  String fetchRestName(String address){
-    String logo = "";
-    for(int k =0;k<restList.length;k++){
-      if(restList[k]['Restaurant name'] == address)
-        logo = restList[k]['Restaurant name'];
-    }
-    return logo;
-  }
+
   Future<void> acceptOrder(String address, String username, int total) async {
 
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('order').where('Restaurant address', isEqualTo: address).where('Username', isEqualTo: username).where('Total', isEqualTo: total).get();
@@ -222,7 +207,7 @@ class _RestaurantOwnerOrdersPageState extends State<RestaurantOwnerOrdersPage> {
                             leading: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.network(
-                                fetchRestLogo(pendingOrders[index]['Restaurant address']),
+                                pendingOrders[index]['logo'],
                                 height: 40,
                                 width: 40,
                                 fit: BoxFit.cover,
@@ -233,17 +218,7 @@ class _RestaurantOwnerOrdersPageState extends State<RestaurantOwnerOrdersPage> {
                               borderRadius: BorderRadius.vertical(
                                   bottom: Radius.circular(8)),
                             ),
-                            onTap: () {/*
-                              restaurantName =
-                                  pendingOrders[index]['Restaurant name'];
-                              restaurantAddress =
-                                  pendingOrders[index]['Restaurant address'];
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MenuList(),
-                                  ));*/
-                            },
+                            onTap: () {},
                             title: Text(
                               //fetchRestName(pendingOrders[index]['Restaurant address']),
                               pendingOrders[index]['Status'],
@@ -284,199 +259,6 @@ class _RestaurantOwnerOrdersPageState extends State<RestaurantOwnerOrdersPage> {
                 : Text('no data'),
           ),
           //here active
-          /*
-          SizedBox(
-            child: Text("active orders",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 800,
-            child: islooded2
-                ? ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: activeOrders.length,
-              // Replace with the actual number of items
-              itemBuilder: (context, index) {
-                return Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Colors.grey,
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    child: ListTile(
-                      subtitle: Text(fetchItemCounts(index),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          fetchRestLogo(activeOrders[index]['Restaurant address']),
-                          height: 60,
-                          width: 60,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      tileColor: Colors.grey[50],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(8)),
-                      ),
-                      onTap: () {/*
-                              restaurantName =
-                                  pendingOrders[index]['Restaurant name'];
-                              restaurantAddress =
-                                  pendingOrders[index]['Restaurant address'];
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MenuList(),
-                                  ));*/
-                      },
-                      title: Text(
-                        fetchRestName(activeOrders[index]['Restaurant address']),
-
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      trailing: SizedBox(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade100
-                          ),
-                          //child: Text(pendingOrders[index]['Status']),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                  onPressed: (){
-                                    acceptOrder(activeOrders[index]['Restaurant address'],activeOrders[index]['Username'],activeOrders[index]['Total']);
-                                  },
-                                  icon: Icon(Icons.check)),
-
-                              IconButton(onPressed: (){
-                                rejectOrder(activeOrders[index]['Restaurant address'],activeOrders[index]['Username'],activeOrders[index]['Total']);
-                              }
-                                  ,icon: Icon(Icons.dangerous)
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ));
-              },
-            )
-                : Text('no data'),
-          ),
-          //here active
-
-          //here past
-          SizedBox(
-            child: Text("past orders",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 800,
-            child: islooded3
-                ? ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: pastOrders.length,
-              // Replace with the actual number of items
-              itemBuilder: (context, index) {
-                return Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Colors.grey,
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    child: ListTile(
-                      subtitle: Text(fetchItemCounts(index),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          fetchRestLogo(pastOrders[index]['Restaurant address']),
-                          height: 60,
-                          width: 60,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      tileColor: Colors.grey[50],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(8)),
-                      ),
-                      onTap: () {/*
-                              restaurantName =
-                                  pendingOrders[index]['Restaurant name'];
-                              restaurantAddress =
-                                  pendingOrders[index]['Restaurant address'];
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MenuList(),
-                                  ));*/
-                      },
-                      title: Text(
-                        fetchRestName(pastOrders[index]['Restaurant address']),
-
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      trailing: SizedBox(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade100
-                          ),
-                          //child: Text(pendingOrders[index]['Status']),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                  onPressed: (){
-                                    acceptOrder(pastOrders[index]['Restaurant address'],pastOrders[index]['Username'],pastOrders[index]['Total']);
-                                  },
-                                  icon: Icon(Icons.check)),
-
-                              IconButton(onPressed: (){
-                                rejectOrder(pastOrders[index]['Restaurant address'],pastOrders[index]['Username'],pastOrders[index]['Total']);
-                              }
-                                  ,icon: Icon(Icons.dangerous)
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ));
-              },
-            )
-                : Text('no data'),
-          ),*/
-
         ],
       ),
     );
