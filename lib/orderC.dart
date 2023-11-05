@@ -12,10 +12,42 @@ class OrderC extends StatefulWidget {
 
 class _OrderCState extends State<OrderC> {
   int sum=0;
+  int s =0;
+  bool f = false;
+   bool islooded = true;
+  late List<Map<String, dynamic>> documents ;
+  Future<void> fetchData() async {
+
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('order').where('Status',isNotEqualTo: 'delivered' ).where('Username', isEqualTo:logedinUsername ).get();
+    prices.forEach((element) { s+=element;});
+    f =querySnapshot.docs.isEmpty;
+    setState(() {
+
+      islooded =true;
+    });
+
+
+
+  }
+  void initState() {
+    super.initState();
+    prices.forEach((element) { s+=element;});
+
+
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {
+    return Scaffold( appBar:AppBar(),floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended( backgroundColor: Colors.blueAccent, onPressed: () async {
+        print(logedinUsername);
+        CollectionReference customerCollection1 =
+        FirebaseFirestore.instance.collection('order');
+        QuerySnapshot customerSnapshot1 = await customerCollection1
+            .where('Status', isNotEqualTo:"delivered" )
+
+            .get();
+        if(customerSnapshot1.docs.isEmpty){
         prices.forEach((element) { sum+=element;});
         print(sum);
         await FirebaseFirestore.instance.collection('order').add({
@@ -26,10 +58,55 @@ class _OrderCState extends State<OrderC> {
           'Counts':counts,
           'Username':logedinUsername,
           'Driver':'',
+          'Restaurant Name': restaurantName,
+          'logo':logo,
+          'Restaurant owner username':ownerName,
 
         });
-        sum=0;
-      },),
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('the order has been placed')));
+        sum=0;}else{
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('you already have an order')));
+        }
+      }, label: Text('place order'),), body: SingleChildScrollView( child: Column(
+          children: [SizedBox(height:400 ,child: islooded?ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: items.length, // Replace with the actual number of items
+            itemBuilder: (context, index) {
+
+
+
+              return Container(  decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                ),
+              ),child: ListTile(subtitle: Text(
+                '${prices[index]}',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+              ),
+
+
+
+                title: Text(
+                  items[index],
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ), trailing: Text('${counts[index]}'),
+              ));
+            },
+          ):Text('no data') ,), Text('total ${s}')],
+        ),
+      ),
     );
   }
 }
