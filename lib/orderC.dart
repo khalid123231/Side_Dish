@@ -74,7 +74,7 @@ class _OrderCState extends State<OrderC> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('you already have an order')));
         }
-      }, label: Text('place order'),), body: SingleChildScrollView( child: Column(
+      }, label: Text('pay  ${s}'),), body: SingleChildScrollView( child: Column(
           children: [SizedBox(height:400 ,child: islooded?ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
@@ -117,7 +117,7 @@ class _OrderCState extends State<OrderC> {
                   )
               ));
             },
-          ):Text('no data') ,), Text('total ${s}')],
+          ):Text('no data') ,)],
         ),
       ),
     );

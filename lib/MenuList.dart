@@ -164,7 +164,8 @@ class _MenuListState extends State<MenuList> {
               fontSize: 14,
               color: Colors.grey,
             ),
-          ),trailing: sq? IconButton(onPressed: () {
+          ),trailing: sq? IconButton(
+            onPressed: () {
             addToCart(index);
           }, icon: Icon(Icons.add),): Row(mainAxisSize: MainAxisSize.min, children: [IconButton(onPressed: () {
             addToCart(index);
