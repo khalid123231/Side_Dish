@@ -33,17 +33,8 @@ class _HistoryCustomerState extends State<HistoryCustomer> {
 
     });
   }
-  Future<void> fetchData2(int index) async {
-    List<Map<String, dynamic>> temp = [];
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').where('Restaurant address', isEqualTo: documents[index]['Restaurant address']).get();
-    querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
-    setState(() {
-      documents2 = temp;
-      islooded2 =true;
-
-    });
-  }
   Future<void> viewStatus(int index) async {
+    orderID=documents[index]['OrderID'];
     Navigator.push(context, MaterialPageRoute(builder: (context) => StatusAndComplain(), ) );
   }
 

@@ -32,7 +32,7 @@ class _StatusAndComplainState extends State<StatusAndComplain> {
   Future<void> complainOrder() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('order').where('OrderID', isEqualTo: orderID).get();
     final fieldsToUpdate = {
-      'complaint' : logedinUsername,
+      'complaint' : complanController,
       'complaint type' : selectdComplaint,
     };
     await querySnapshot.docs.first.reference.update( fieldsToUpdate );
