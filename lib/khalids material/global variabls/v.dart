@@ -2,6 +2,7 @@ String sw = 'sd';
 String logedinUsername = '';
 String restaurantAddress = '';
 String restaurantName = '';
+String userPhone='';
 String ownerName='';
 List<String> items = [];
 List<String> logos = [];

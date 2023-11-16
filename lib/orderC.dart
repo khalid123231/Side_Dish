@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app_v3/khalids%20material/global%20variabls/v.dart';
 
+import 'HomePage.dart';
+
 class OrderC extends StatefulWidget {
   const OrderC({super.key});
 
@@ -71,10 +73,12 @@ class _OrderCState extends State<OrderC> {
           'OrderID' : uniqueOrderName,
           'complaint' : '' ,
           'complaint type' : '',
+          'phone number customer': userPhone,
 
         });
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('the order has been placed')));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
         sum=0;}else{
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('you already have an order')));

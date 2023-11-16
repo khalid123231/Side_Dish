@@ -91,7 +91,7 @@ class _HistoryCustomerState extends State<HistoryCustomer> {
                   ),
 
                   title: Text(
-                    documents[index]['Restaurant Name'],
+                    documents[index]['Restaurant Name']+'  ID: '+documents[index]['OrderID'],
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

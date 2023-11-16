@@ -333,6 +333,7 @@ class _LoginPageState extends State<LoginPage> {
                               if(_formfield.currentState!.validate()){
                                 if(customerSnapshot1.docs.isNotEmpty
                                 ){ logedinUsername = usernameController.text;
+                                  userPhone= customerSnapshot1.docs[0]['Phone number'];
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(content: Text('Welcome our customers')));
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );

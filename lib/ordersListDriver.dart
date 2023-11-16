@@ -106,7 +106,7 @@ class _ordersListDriverState extends State<ordersListDriver> {
                   ),
 
                   title: Text(
-                    documents[index]['Restaurant Name'],
+                    documents[index]['Restaurant Name']+'  ID:' +documents[index]['OrderID'],
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

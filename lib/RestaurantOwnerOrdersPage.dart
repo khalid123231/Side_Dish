@@ -119,7 +119,8 @@ class _RestaurantOwnerOrdersPageState extends State<RestaurantOwnerOrdersPage> {
 
   String fetchItemCounts(int number){
     String items = '';
-    items += pendingOrders[number]['Status'].toString();
+    items += 'Order ID: '+pendingOrders[number]['OrderID'].toString()+'                    ';
+    items += 'Status: '+pendingOrders[number]['Status'].toString();
     items += ". ";
     for(int i =0;i<pendingOrders[number]['Items'].length;i++){
       items += pendingOrders[number]['Items'][i].toString();
@@ -129,6 +130,8 @@ class _RestaurantOwnerOrdersPageState extends State<RestaurantOwnerOrdersPage> {
     }
     items += ".  Total: ";
     items += pendingOrders[number]['Total'].toString();
+    items += ' complaints: '+pendingOrders[number]['complaint'].toString();
+    items += ' complaint type: '+pendingOrders[number]['complaint type'].toString();
     return items;
   }
   Row statusIcons(String status, index){

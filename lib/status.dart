@@ -16,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'DropdownC.dart';
+import 'HomePage.dart';
 import 'LoginPage.dart';
 
 class StatusAndComplain extends StatefulWidget{
@@ -29,15 +30,40 @@ class _StatusAndComplainState extends State<StatusAndComplain> {
 
 
 
+
+  bool islooded = false;
+  late List<Map<String, dynamic>> documents ;
+
+  Future<void> fetchData() async {
+    List<Map<String, dynamic>> temp = [];
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('order').where('OrderID', isEqualTo: orderID).get();
+    querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
+    setState(() {
+      documents = temp;
+      islooded =true;
+
+    });
+  }
+
+
+
+
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   Future<void> complainOrder() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('order').where('OrderID', isEqualTo: orderID).get();
     final fieldsToUpdate = {
-      'complaint' : complanController,
+      'complaint' : complanController.text,
       'complaint type' : selectdComplaint,
     };
+
     await querySnapshot.docs.first.reference.update( fieldsToUpdate );
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('complaint has been sent')));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(), ) );
   }
 
 
@@ -63,7 +89,9 @@ class _StatusAndComplainState extends State<StatusAndComplain> {
 
         ),
         body: Container(
+
             child: SingleChildScrollView(
+
               child: Container(
 
                 // loginYrD (1:1668)
@@ -78,9 +106,9 @@ class _StatusAndComplainState extends State<StatusAndComplain> {
                   children: [
                     Container(
                       // autogroupyeedrdw (AdWRrs2GpqAfzRzUxJyEeD)
-                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 124*fem, 21*fem),
-                      width: 224*fem,
-                      height: 66*fem,
+                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 25*fem, 21*fem),
+                      width: 400*fem,
+                      height: 160*fem,
                       child: Stack(
                         children: [
                           Positioned(
@@ -89,9 +117,10 @@ class _StatusAndComplainState extends State<StatusAndComplain> {
                             top: 0*fem,
                             child: Align(
                               child: SizedBox(
+
                                 width: 220*fem,
-                                height: 46*fem,
-                                child: Text(
+                                height: 100*fem,
+                                child:  Text(
                                   'Status of order',
                                   style: SafeGoogleFont (
                                     'Everett',
@@ -112,18 +141,66 @@ class _StatusAndComplainState extends State<StatusAndComplain> {
                             child: Align(
                               child: SizedBox(
                                 width: 290*fem,
-                                height: 23*fem,
-                                child: Text(
-                                  '',
+                                height: 100*fem,
+                                child: islooded? Text(
+                                  'status: '+documents[0]['Status'],
                                   style: SafeGoogleFont (
                                     'Everett',
-                                    fontSize: 17*ffem,
+                                    fontSize: 22*ffem,
                                     fontWeight: FontWeight.w400,
-                                    height: 1.3529411765*ffem/fem,
+                                    height: 7.5*ffem/fem,
                                     letterSpacing: -0.17*fem,
-                                    color: Color(0xff6a788a),
+
                                   ),
-                                ),
+                                ):Text('no data',),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            // signuporlogintoyouraccount19T (1:1670)
+                            left: 0*fem,
+                            top: 43*fem,
+                            child: Align(
+                              child: SizedBox(
+                                width: 290*fem,
+                                height: 120*fem,
+                                child: islooded? Text(
+                                  'driver: '+documents[0]['Driver'],
+                                  style: SafeGoogleFont (
+                                    'Everett',
+                                    fontSize: 22*ffem,
+                                    fontWeight: FontWeight.w400,
+                                    height: 10*ffem/fem,
+                                    letterSpacing: -0.17*fem,
+
+                                  ),
+                                ):Text('',),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            // signuporlogintoyouraccount19T (1:1670)
+                            width: 360*fem,
+                            left: 0*fem,
+                            top: 43*fem,
+                            height: 400*fem,
+                            child: Align(
+                              child: SizedBox(
+                                width: 400*fem,
+                                height: 500*fem,
+                                child: islooded? Text(
+                                  'previous complaint: '+documents[0]['complaint'],
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: SafeGoogleFont (
+                                    'Everett',
+                                    fontSize: 22*ffem,
+                                    fontWeight: FontWeight.normal,
+                                    height: 1,
+                                    letterSpacing: -0.17*fem,
+                                  ),
+                                  softWrap: true,
+                                ):Text('',),
                               ),
                             ),
                           ),
@@ -222,17 +299,18 @@ class _StatusAndComplainState extends State<StatusAndComplain> {
                                       const SnackBar(content: Text('Processing data')));
 
                                   CollectionReference Complains =
-                                  FirebaseFirestore.instance.collection('orders');
+                                  FirebaseFirestore.instance.collection('order');
                                   QuerySnapshot complaint1 = await Complains
-                                      .where('Order ID', isEqualTo: orderID).where('complaint', isEqualTo: '')
+                                      .where('OrderID', isEqualTo: orderID).where('complaint', isEqualTo: "")
                                       .get();
 
-                                    if(complaint1.docs.isEmpty== true ){
+
+                                    if(complaint1.docs.isEmpty){
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('already sent a complaint'),));
                                     }else{
                                       complainOrder();
                                     }}
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryCustomer(), ) );
+
                               },
                               child: Text(
                                 'send complaint',
