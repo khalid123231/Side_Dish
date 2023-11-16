@@ -52,9 +52,11 @@ class _OrderCState extends State<OrderC> {
         QuerySnapshot customerSnapshot3 = await customerCollection1
             .where('Status', isEqualTo:"accepted" ).where('Username' , isEqualTo: logedinUsername )
             .get();
+
         if(customerSnapshot3.docs.isEmpty && customerSnapshot1.docs.isEmpty && customerSnapshot2.docs.isEmpty){
         prices.forEach((element) { sum+=element;});
         print(sum);
+        String uniqueOrderName = DateTime.now().millisecondsSinceEpoch.toString();
         await FirebaseFirestore.instance.collection('order').add({
           'Status': 'sent',
           'Total':sum,
@@ -66,6 +68,9 @@ class _OrderCState extends State<OrderC> {
           'Restaurant Name': restaurantName,
           'logo':logo,
           'Restaurant owner username':ownerName,
+          'OrderID' : uniqueOrderName,
+          'complaint' : '' ,
+          'complaint type' : '',
 
         });
         ScaffoldMessenger.of(context).showSnackBar(
