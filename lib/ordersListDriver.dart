@@ -83,7 +83,7 @@ class _ordersListDriverState extends State<ordersListDriver> {
                     ),
                   ),
                 ),child: ListTile(subtitle: Text(
-                  'Status'+' : ' +  documents[index]['Status']+',  delivery address: '+documents[index]['Restaurant address'],
+                  'Status'+' : ' +  documents[index]['Status']+',  delivery address: '+documents[index]['Restaurant address']+', phone number:  ' +documents[index]['phone number customer'],
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
