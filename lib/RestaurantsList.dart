@@ -20,24 +20,37 @@ class RestaurantList extends StatefulWidget {
 class _RestaurantListState extends State<RestaurantList> {
   String selectedChoice ='';
 
-  String w ='';
+  String searchR ='';
   callback(varw){
     setState(() {
-      w=varw;
+      searchR=varw;
     });
-    if(w!=''){
+    if(searchR!=''){
    fetchData1();}
     else{fetchData();}
   }
 
   late List<Map<String, dynamic>> documents ;
   bool islooded = false;
-
-
+  List<String> tags = ['all', 'offers'];
   Future<void> fetchData() async {
     List<Map<String, dynamic>> temp = [];
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').get();
-    querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
+    querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>);
+    });
+    if(temp.isNotEmpty){
+      for(int i=0; i<temp.length;i++){
+        List s =temp[i]['Restaurant tags'];
+        for(int j=0; j<s.length;j++){
+          int x = tags.indexOf(s[j]);
+          if(x==-1){
+            tags.add(s[j]);
+          }
+        }
+
+
+      }
+    }
     setState(() {
       selectedChoice='all';
       documents = temp;
@@ -47,9 +60,41 @@ class _RestaurantListState extends State<RestaurantList> {
 
 
   }
+
+//this method gets all of the restaurants
+  Future<void> fetchData4() async {
+    List<Map<String, dynamic>> temp = [];
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').get();
+    querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>);
+    });
+    setState(() {
+      documents=[];
+    });
+    if(temp.isNotEmpty){
+    for(int i=0; i<temp.length;i++){
+      List s =temp[i]['Restaurant tags'];
+      int x = s.indexOf(selectedChoice);
+      if(x !=-1){
+        documents.add(temp[i]);
+      }
+
+
+    }
+    }
+    setState(() {
+
+      documents.length;
+      islooded =true;
+    });
+
+
+
+  }
+  //this method gets the restaurants that the user searched for
+  //w is the restaurant name
   Future<void> fetchData1() async {
     List<Map<String, dynamic>> temp = [];
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').where('Restaurant name'  , isEqualTo: w ).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').where('Restaurant name'  , isEqualTo: searchR ).get();
     querySnapshot.docs.forEach((e) { temp.add(e.data() as Map<String, dynamic>); });
     setState(() {
 
@@ -60,6 +105,7 @@ class _RestaurantListState extends State<RestaurantList> {
 
 
   }
+  //this method gets the restaurats that have offers
   Future<void> fetchData2() async {
     List<Map<String, dynamic>> temp = [];
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('restaurant').where('has offer'  , isEqualTo: true ).get();
@@ -73,13 +119,14 @@ class _RestaurantListState extends State<RestaurantList> {
 
 
   }
-
+  //first method the page runs
   @override
   void initState() {
     super.initState();
 
     fetchData();
   }
+  //the build of the interface of the page
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
@@ -94,33 +141,27 @@ class _RestaurantListState extends State<RestaurantList> {
               fontFamily: 'Pacifico', // Use a stylish font
               fontStyle: FontStyle.normal, // Make the text italic
               color: Colors.blue, // Use a stylish color
-            ), textAlign: TextAlign.left,) ,SizedBox(width: 500, height: 100,child:Padding( child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                ChoiceChip(selectedColor:  Color(0xffed9b11),
-                  label: Text('all'),
-                  selected: selectedChoice == 'all',
-                  onSelected: (bool selected) {
-                    setState(() {
-                      fetchData();
-                      selectedChoice = (selected ? 'all' : null)!;
-
-                    });
-                  },
-                )  ,SizedBox(width: 8),
-                ChoiceChip(selectedColor:  Color(0xffed9b11),
-                  label: Text('offers'),
-                  selected: selectedChoice == 'offers',
-                  onSelected: (bool selected) {
-                    setState(() {
+            ), textAlign: TextAlign.left,) ,SizedBox( height: 100,child:Padding( child: ListView.builder(scrollDirection: Axis.horizontal,itemCount: tags.length,itemBuilder: (context, index){
+              return Container(padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),child: ChoiceChip(selectedColor:  Color(0xffed9b11),
+                label: Text(tags[index]),
+                selected: selectedChoice ==tags[index] ,
+                onSelected: (bool selected) {
+                  selectedChoice = (selected ? tags[index] : null)!;
+                  setState(() {
+                    if(index ==0){
+                    fetchData();}
+                    else if(index == 1){
                       fetchData2();
-                      selectedChoice = (selected ? 'offers' : null)!;
-                    });
-                  },
-                ),
+                    }else{
+                      fetchData4();
+                    }
 
-              ],
-            ), padding:   EdgeInsets.symmetric(horizontal: 40.0),)), SizedBox(height:400 ,child: islooded?ListView.builder(
+
+
+                  });
+                },
+              ));
+            }), padding:   EdgeInsets.symmetric(horizontal: 40.0),)), SizedBox(height:400 ,child: islooded?ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: documents.length, // Replace with the actual number of items
@@ -136,6 +177,7 @@ class _RestaurantListState extends State<RestaurantList> {
                     ),
                   ),
                 ),child: ListTile(subtitle: Text(
+                  // the tags of the restaurant it only shows the first two
                   documents[index]['Restaurant tags'][0]+',' +  documents[index]['Restaurant tags'][1],
                   style: TextStyle(
                     fontSize: 14,
@@ -145,6 +187,7 @@ class _RestaurantListState extends State<RestaurantList> {
 
                   leading:ClipRRect(
                   borderRadius: BorderRadius.circular(10),
+                  //shows the logo
                   child: Image.network(
                     documents[index]['Restaurant logo'],
                     height: 60,
@@ -154,7 +197,9 @@ class _RestaurantListState extends State<RestaurantList> {
                 ),tileColor: Colors.grey[50],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
-                  ),onTap: (){
+                  ),
+                  //opens the restaurant menu
+                  onTap: (){
                   restaurantName = documents[index]['Restaurant name'];
                   restaurantAddress = documents[index]['Restaurant address'];
                   logo =documents[index]['Restaurant logo'];
